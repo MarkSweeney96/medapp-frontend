@@ -1,0 +1,132 @@
+/* basic styles used from tutorial by 'Devistry' on YouTube
+MERN stack user authentication video tutorial series
+https://www.youtube.com/watch?v=Rdbs2W6R23c
+https://www.youtube.com/watch?v=bppuE6rbO1c
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  color: #30336b;
+  text-decoration: unset;
+}
+
+ul {
+  margin-left: 1.5rem;
+  list-style: none;
+}
+
+button, input[type="submit"] {
+  boarder: none;
+  background: none;
+  color: unset;
+  cursor: pointer;
+}
+
+h1, h2, h3, h5, h6, p, ul, ol {
+  margin: 1em 0;
+}
+
+/* general styling */
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.page {
+  padding: 1rem;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* header style */
+
+#header {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eb4d4b;
+}
+
+#header .title {
+  margin: 0;
+  padding: 0 1rem;
+  color: #ffffff;
+}
+
+#header .auth-options {
+  height: 100%;
+  display: flex;
+}
+
+#header .auth-options button {
+  padding: 0 1rem;
+  background-color: #c0392b;
+  color: #ffffff;
+  font-size: 1.1rem;
+}
+
+#header .auth-options button:hover {
+  background-color: #e74c3c;
+}
+
+/* form style */
+.form label,
+.form input {
+  display: block;
+}
+
+.form input {
+  margin-bottom: 1rem;
+}
+
+.form label {
+  margin-bottom: 0.2rem;
+}
+
+.form input[type="text"],
+.form input[type="email"],
+.form input[type="password"] {
+  width: 100%;
+  padding: 0.3rem;
+  border: 1px solid #c2c2c2;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  font-size: 1.1rem;
+}
+
+.form input:focus {
+  border: 1px solid #50a4e9;
+  box-shadow: inset 0px 0px 5px rgba(38, 142, 228, 0.5);
+  outline: none;
+}
+
+.form input[type="submit"] {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #6aa051;
+  background-color: #c8ecb7;
+  font-size: 1.1rem;
+  border-radius: 4px;
+}
+
+/* media queries */
+@media screen and (max-width: 550px) {
+  #header .title {
+    font-size: 1.2rem;
+  }
+
+  #header .auth-options button {
+    padding: 0 0.5rem;
+    font-size: 0.9rem;
+  }
+}
