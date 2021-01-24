@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import Axios from "axios";
+import ErrorMsg from "../other/ErrorMsg";
 
 export default function Register() {
   // set state for each input value in register form
@@ -11,32 +12,45 @@ export default function Register() {
   const [name, setName] = useState();
   const [address, setAddress] = useState();
   const [phone, setPhone] = useState();
+  const [error, setError] = useState();
 
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) => {
     e.preventDefault();
-    const newUser = { email, password, passwordCheck, name, address, phone };
-    await Axios.post(
-      "http://localhost:5000/users/register",
-      newUser
-    );
-    const loginRes = await Axios.post(
-      "http://localhost:5000/users/login", {
-        email,
-        password,
-      });
-      setUserData({
-        token: loginRes.data.token,
-        user: loginRes.data.user,
-      });
-      localStorage.setItem("auth-token", loginRes.data.token);
-      history.push("/");
+
+    try {
+      const newUser = { email, password, passwordCheck, name, address, phone };
+      await Axios.post(
+        "http://localhost:5000/users/register",
+        newUser
+      );
+      const loginRes = await Axios.post(
+        "http://localhost:5000/users/login", {
+          email,
+          password,
+        });
+        setUserData({
+          token: loginRes.data.token,
+          user: loginRes.data.user,
+        });
+        localStorage.setItem("auth-token", loginRes.data.token);
+        history.push("/");
+    } catch(err) {
+      //sets error message if there is one to display from the backend
+      err.response.data.msg && setError(err.response.data.msg);
+    }
+
   };
+  //{error &&... if there is an error create error message with error text from backend
+  // clear error function resets error message to undefined
   return (
     <div className="page">
       <h2>Register</h2>
+      {error && (
+        <ErrorMsg message={error} clearError={() => setError(undefined) } />
+      )}
       <form className="form" onSubmit={submit}>
       <label htmlFor="register-email">Email</label>
       <input

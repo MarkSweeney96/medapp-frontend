@@ -2,6 +2,7 @@
 MERN stack user authentication video tutorial series
 https://www.youtube.com/watch?v=Rdbs2W6R23c
 https://www.youtube.com/watch?v=bppuE6rbO1c
+https://www.youtube.com/watch?v=CUjlZcrKd7w
  */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
@@ -117,6 +118,27 @@ body {
   background-color: #c8ecb7;
   font-size: 1.1rem;
   border-radius: 4px;
+}
+
+/* error message */
+
+.error-msg {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border: 1px solid #e07c7c;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8d6d6;
+}
+
+.error-msg button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #df4343;
+  color: #ffffff;
 }
 
 /* media queries */
