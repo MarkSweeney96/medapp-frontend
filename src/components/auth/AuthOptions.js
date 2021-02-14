@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/UserContext";
+import { Button } from 'carbon-components-react';
 
 export default function AuthOptions() {
   const { userData, setUserData } = useContext(UserContext);
@@ -21,12 +22,12 @@ export default function AuthOptions() {
         //checks for value of user, if not null
         //or undefined display logout button
         userData.user ? (
-          <button onClick={logout}>Log out</button>
+          <div><Button kind='ghost' onClick={logout}>Log out</Button></div>
         ) : (
           //otherwise display a register and login button
           <>
-            <button onClick={register}>Register</button>
-            <button onClick={login}>Login</button>
+              <div><Button kind='ghost' onClick={register}>Register</Button></div>
+            <div><Button kind='ghost' onClick={login} >Login</Button></div>
           </>
         )}
     </nav>

@@ -1,0 +1,102 @@
+@import '~carbon-components/scss/globals/scss/styles.scss';
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+/* basic styles used from tutorial by 'Devistry' on YouTube
+MERN stack user authentication video tutorial series
+https://www.youtube.com/watch?v=Rdbs2W6R23c
+https://www.youtube.com/watch?v=bppuE6rbO1c
+https://www.youtube.com/watch?v=CUjlZcrKd7w
+ */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+a {
+  color: #30336b;
+  text-decoration: unset;
+}
+
+ul {
+  margin-left: 1.5rem;
+  list-style: none;
+}
+
+button, input[type="submit"] {
+  boarder: none;
+  background: none;
+  color: unset;
+  cursor: pointer;
+}
+
+h1, h2, h3, h5, h6, p, ul, ol {
+  margin: 1em 0;
+}
+
+/* general styling */
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.page {
+  padding: 1rem;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+/* header style */
+
+#header {
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f6fa;
+}
+
+#header .title {
+  margin: 0;
+  padding: 0 1rem;
+  color: #161616;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#header .auth-options {
+  height: 100%;
+  display: flex;
+}
+
+// form style
+
+#form-btn {
+  margin-top: 10px;
+}
+
+.bx--form__helper-text {
+  margin-bottom: 10px;
+}
+
+/* error message */
+
+
+
+/* media queries */
+@media screen and (max-width: 550px) {
+  #header .title {
+    font-size: 1.2rem;
+  }
+
+  #header .auth-options button {
+    padding: 0 0.5rem;
+    font-size: 0.9rem;
+  }
+}

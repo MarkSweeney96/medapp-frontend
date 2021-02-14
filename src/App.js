@@ -6,8 +6,7 @@ import Header from "./components/layout/Header";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import UserContext from "./context/UserContext";
-
-import "./style.css";
+import "./index.scss";
 
 export default function App() {
   const [userData, setUserData] = useState({

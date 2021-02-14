@@ -4,6 +4,13 @@ import UserContext from "../../context/UserContext";
 import Axios from "axios";
 import ErrorMsg from "../other/ErrorMsg";
 
+import { Form } from 'carbon-components-react';
+import { TextInput } from 'carbon-components-react';
+import { Button } from 'carbon-components-react';
+import { InlineNotification } from 'carbon-components-react';
+import { NotificationActionButton } from 'carbon-components-react';
+
+
 export default function Login() {
   // set state for each input value in login form
   const [email, setEmail] = useState();
@@ -40,26 +47,43 @@ export default function Login() {
     <div className="page">
       <h2>Login</h2>
       {error && (
-        <ErrorMsg message={error} clearError={() => setError(undefined) } />
+        <ErrorMsg
+          message= {
+            <InlineNotification
+              lowContrast
+              hideCloseButton
+              kind="error"
+              actions={<NotificationActionButton>Clear</NotificationActionButton>}
+              iconDescription="close error message"
+              title={error}
+            />
+          }
+        clearError={() => setError(undefined) }
+        />
       )}
-      <form className="form" onSubmit={submit}>
-      <label htmlFor="login-email">Email</label>
-      <input
+      <Form className="form" onSubmit={submit}>
+      <TextInput
         id="login-email"
         type="email"
+        placeholder="Email"
+        helperText="Enter your email address"
         //sets email state to whatever is inputted into the email field
         onChange={(e) => setEmail(e.target.value)}
       />
 
-      <label htmlFor="login-password">Password</label>
-      <input
+
+      <TextInput
         id="login-password"
         type="password"
+        placeholder="Password"
+        helperText="Enter your password"
         //sets password state to whatever is inputted into the password field
         onChange={(e) => setPassword(e.target.value)}
       />
-      <input type="submit" value="Login" />
-      </form>
+      <Button id="form-btn" type="submit" value="Login">
+        Login
+      </Button>
+      </Form>
     </div>
   );
 }
