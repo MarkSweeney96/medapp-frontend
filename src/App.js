@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Axios from "axios";
-import Home from "./components/pages/Home";
-import Header from "./components/layout/Header";
+
+import Dashboard from "./components/pages/Dashboard";
+import BookAppointment from "./components/pages/BookAppointment";
+import ViewAppointments from "./components/pages/ViewAppointments";
+import ViewPrescriptions from "./components/pages/ViewPrescriptions";
+import MyAccount from "./components/pages/MyAccount";
+
+import UIShell from "./components/layout/UIShell";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import UserContext from "./context/UserContext";
@@ -48,10 +54,14 @@ export default function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ userData, setUserData }}>
-        <Header />
+        <UIShell />
         <div className="container">
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Dashboard} />
+          <Route exact path="/bookappointment" component={BookAppointment} />
+          <Route exact path="/viewappointments" component={ViewAppointments} />
+          <Route exact path="/viewprescriptions" component={ViewPrescriptions} />
+          <Route exact path="/myaccount" component={MyAccount} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
         </Switch>

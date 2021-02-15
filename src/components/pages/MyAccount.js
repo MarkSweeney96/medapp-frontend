@@ -5,7 +5,7 @@ import UserContext from "../../context/UserContext";
 import { Button } from 'carbon-components-react';
 
 
-export default function Home() {
+export default function MyAccount() {
   const { userData } = useContext(UserContext);
 
 // if the user is logged in display a welcome message
@@ -14,14 +14,8 @@ export default function Home() {
     <div className="page">
       {userData.user ? (
         <>
-        <h1>Welcome { userData.user.name }</h1>
-        <div>
-          <Button>Dashboard</Button>
-          <Button>Book an appointment</Button>
-          <Button>View my appointments</Button>
-          <Button>View my presctiptions</Button>
-          <Button>My account</Button>
-        </div>
+        <h3>This is the my account page</h3>
+        <h3>User: { userData.user.name }</h3>
         </>
       ) : (
         <>

@@ -1,13 +1,4 @@
 @import '~carbon-components/scss/globals/scss/styles.scss';
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
-
-/* basic styles used from tutorial by 'Devistry' on YouTube
-MERN stack user authentication video tutorial series
-https://www.youtube.com/watch?v=Rdbs2W6R23c
-https://www.youtube.com/watch?v=bppuE6rbO1c
-https://www.youtube.com/watch?v=CUjlZcrKd7w
- */
 
 body {
   margin: 0;
@@ -16,32 +7,12 @@ body {
   box-sizing: border-box;
 }
 
-a {
-  color: #30336b;
-  text-decoration: unset;
-}
-
-ul {
-  margin-left: 1.5rem;
-  list-style: none;
-}
-
-button, input[type="submit"] {
-  boarder: none;
-  background: none;
-  color: unset;
-  cursor: pointer;
-}
 
 h1, h2, h3, h5, h6, p, ul, ol {
   margin: 1em 0;
 }
 
 /* general styling */
-
-body {
-  font-family: "Roboto", sans-serif;
-}
 
 .page {
   padding: 1rem;
@@ -54,25 +25,39 @@ body {
 
 /* header style */
 
-#header {
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f5f6fa;
+a.bx--header__name{
+  font-size: 1.3rem;
 }
 
-#header .title {
-  margin: 0;
-  padding: 0 1rem;
-  color: #161616;
-  font-size: 20px;
-  font-weight: bold;
+.bx--header {
+  background-color: #F4F4F4;
+  border-bottom: 1px solid #F4F4F4;
 }
 
-#header .auth-options {
-  height: 100%;
+a.bx--header__name, a.bx--header__name:hover {
+  color: #080808;
+}
+
+.bx--header__menu-trigger > svg {
+    fill: #080808;
+}
+
+a.bx--side-nav__link > .bx--side-nav__link-text, .bx--side-nav a.bx--header__menu-item .bx--text-truncate-end{
+  font-size: 1rem;
+}
+
+nav.auth-options {
   display: flex;
+}
+
+.bx--header__menu-trigger:hover{
+  color: #525252;
+}
+
+.bx--header__action--active{
+border-right: 1px solid #F4F4F4;
+border-bottom: 1px solid #F4F4F4;
+border-left: 1px solid #F4F4F4;
 }
 
 // form style
@@ -83,20 +68,4 @@ body {
 
 .bx--form__helper-text {
   margin-bottom: 10px;
-}
-
-/* error message */
-
-
-
-/* media queries */
-@media screen and (max-width: 550px) {
-  #header .title {
-    font-size: 1.2rem;
-  }
-
-  #header .auth-options button {
-    padding: 0 0.5rem;
-    font-size: 0.9rem;
-  }
 }

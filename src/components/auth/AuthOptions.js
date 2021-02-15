@@ -26,7 +26,7 @@ export default function AuthOptions() {
         ) : (
           //otherwise display a register and login button
           <>
-              <div><Button kind='ghost' onClick={register}>Register</Button></div>
+            <div><Button kind='ghost' onClick={register}>Register</Button></div>
             <div><Button kind='ghost' onClick={login} >Login</Button></div>
           </>
         )}
