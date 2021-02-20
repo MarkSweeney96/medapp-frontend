@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
 import UserContext from "../../context/UserContext";
-
-import { Button } from 'carbon-components-react';
+import NotLoggedIn from "../other/NotLoggedIn";
 
 
 export default function Dashboard() {
@@ -19,8 +17,7 @@ export default function Dashboard() {
         </>
       ) : (
         <>
-          <h2>You are not logged in</h2>
-          <Link to="/login"> <Button>Login</Button> </Link>
+          <NotLoggedIn />
         </>
       )}
     </div>

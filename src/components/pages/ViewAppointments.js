@@ -1,25 +1,45 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useContext, useState } from "react";
 import UserContext from "../../context/UserContext";
+import NotLoggedIn from "../other/NotLoggedIn";
+import Appointment from "../other/Appointment";
+import Axios from "axios";
 
-import { Button } from 'carbon-components-react';
 
-
-export default function ViewAppointments() {
+export default function ViewAppointments(props) {
   const { userData } = useContext(UserContext);
+  const [appointments, setAppointments] = useState([]);
 
-// if the user is logged in display a welcome message
-// if not, alert them they are not logged in and provied a login link
+  useEffect(() => {
+    getAppointments();
+  }, []);
+
+  async function getAppointments() {
+    const appointmentsRes = await Axios.get("http://localhost:5000/appointments/");
+    console.log(appointmentsRes);
+    setAppointments(appointmentsRes.data);
+  }
+
+  function renderAppointments() {
+    return appointments.map((appointment, i) => {
+      return <Appointment key={i} appointment={appointment} />
+
+    })
+  }
+
+// if the user is logged in display appointments
+// if not, display not logged in component
   return (
     <div className="page">
       {userData.user ? (
         <>
         <h3>This is the view appointments page</h3>
+        <div className="ViewAppointments">
+          {renderAppointments()}
+        </div>
         </>
       ) : (
         <>
-          <h2>You are not logged in</h2>
-          <Link to="/login"> <Button>Login</Button> </Link>
+            <NotLoggedIn />
         </>
       )}
     </div>
