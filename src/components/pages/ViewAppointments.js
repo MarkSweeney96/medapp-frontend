@@ -2,12 +2,21 @@ import React, { useEffect, useContext, useState } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import Appointment from "../other/Appointment";
+import EditAppointment from "../pages/EditAppointment";
 import Axios from "axios";
+
+import { Tile } from 'carbon-components-react';
+import { StructuredListWrapper } from 'carbon-components-react';
+import { StructuredListHead } from 'carbon-components-react';
+import { StructuredListRow } from 'carbon-components-react';
+import { StructuredListCell } from 'carbon-components-react';
+import { StructuredListBody } from 'carbon-components-react';
 
 
 export default function ViewAppointments(props) {
   const { userData } = useContext(UserContext);
   const [appointments, setAppointments] = useState([]);
+  const [editAppointmentData, setEditAppointmentData] = useState(null);
 
   useEffect(() => {
     getAppointments();
@@ -19,10 +28,18 @@ export default function ViewAppointments(props) {
     setAppointments(appointmentsRes.data);
   }
 
-  function renderAppointments() {
-    return appointments.map((appointment, i) => {
-      return <Appointment key={i} appointment={appointment} />
+  function editAppointment(appointmentData) {
+    setEditAppointmentData(appointmentData);
+  }
 
+  function renderAppointments() {
+    //sorts appointments based on the date and time they were greated (newest first)
+    let sortedAppointments = [...appointments];
+    sortedAppointments = sortedAppointments.sort((a,b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    return sortedAppointments.map((appointment, i) => {
+      return <Appointment key={i} appointment={appointment} getAppointments={getAppointments} editAppointment={editAppointment} />
     })
   }
 
@@ -32,10 +49,48 @@ export default function ViewAppointments(props) {
     <div className="page">
       {userData.user ? (
         <>
-        <h3>This is the view appointments page</h3>
-        <div className="ViewAppointments">
+        <br/><br/><br/><br/>
+        <Tile><h2>View appointments</h2></Tile><br/>
+        <StructuredListWrapper ariaLabel="Structured list">
+      <StructuredListHead>
+        <StructuredListRow
+          head
+          tabIndex={0}
+        >
+          <StructuredListCell head>
+            Patient
+          </StructuredListCell>
+          <StructuredListCell head>
+            Medical Professional
+          </StructuredListCell>
+          <StructuredListCell head>
+            Date
+          </StructuredListCell>
+          <StructuredListCell head>
+            Time
+          </StructuredListCell>
+          <StructuredListCell head>
+            Symptoms
+          </StructuredListCell>
+          <StructuredListCell head>
+            Notes
+          </StructuredListCell>
+          <StructuredListCell head>
+            Status
+          </StructuredListCell>
+          <StructuredListCell head>
+            Edit/Delete
+          </StructuredListCell>
+        </StructuredListRow>
+      </StructuredListHead>
+      <StructuredListBody>
           {renderAppointments()}
-        </div>
+      </StructuredListBody>
+    </StructuredListWrapper>
+
+    <EditAppointment
+    editAppointmentData={editAppointmentData}
+    />
         </>
       ) : (
         <>

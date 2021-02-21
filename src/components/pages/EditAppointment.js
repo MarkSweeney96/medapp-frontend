@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import Axios from "axios";
@@ -15,7 +15,7 @@ import { TextArea } from 'carbon-components-react';
 
 
 
-export default function BookAppointment() {
+export default function EditAppointment({ getAppointments, editAppointmentData }) {
   const { userData } = useContext(UserContext);
   const [editorPatient, setEditorPatient] = useState("");
   const [editorDoctorNurse, setEditorDoctorNurse] = useState("");
@@ -24,6 +24,19 @@ export default function BookAppointment() {
   const [editorSymptoms, setEditorSymptoms] = useState("");
   const [editorNotes, setEditorNotes] = useState("");
   const [editorStatus, setEditorStatus] = useState("");
+
+  useEffect(() => {
+    if (editAppointmentData) {
+      setEditorPatient(editAppointmentData.patient);
+      setEditorDoctorNurse(editAppointmentData.doctor_nurse);
+      setEditorDate(editAppointmentData.date);
+      setEditorTime(editAppointmentData.time);
+      setEditorSymptoms(editAppointmentData.symptoms);
+      setEditorNotes(editAppointmentData.notes);
+      setEditorStatus(editAppointmentData.status);
+    }
+
+  }, [editAppointmentData]);
 
   async function saveAppointment(e){
     e.preventDefault();
@@ -37,7 +50,7 @@ export default function BookAppointment() {
       notes: editorNotes ? editorNotes : "Not provided",
       status: editorStatus
     }
-    await Axios.post("http://localhost:5000/appointments/create", appointmentData);
+    await Axios.put(`http://localhost:5000/appointments/edit/${editAppointmentData._id}`, appointmentData);
 
     setEditorPatient("");
     setEditorDoctorNurse("");
@@ -47,8 +60,10 @@ export default function BookAppointment() {
     setEditorNotes("");
     setEditorStatus("");
 
-    window.location.replace("/appointmentconfirmation");
+    window.location.replace("/appointmentupdated");
   }
+
+
 
 // if the user is logged in display a book appointment form
 // if not, alert them they are not logged in and provied a login link
@@ -57,9 +72,9 @@ export default function BookAppointment() {
       {userData.user ? (
         <>
         <br/><br/><br/><br/>
-        <Tile><h2>Book an appointment</h2></Tile><br/>
+        <Tile><h2>Edit an appointment</h2></Tile><br/>
         <div className="appointment-editer">
-          <Form action="/appointmentconfirmation" onSubmit={saveAppointment}>
+          <Form onSubmit={saveAppointment}>
           <TextInput
             id="editor-patinet"
             type="text"
@@ -153,7 +168,7 @@ export default function BookAppointment() {
               />
           </Select>
           <br/>
-            <Button type="submit">Book Appointment</Button>
+            <Button type="submit">Update Appointment</Button>
           </Form>
 
         </div>
