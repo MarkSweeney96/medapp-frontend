@@ -4,14 +4,24 @@ import Axios from "axios";
 import { StructuredListRow } from 'carbon-components-react';
 import { StructuredListCell } from 'carbon-components-react';
 import { Button } from 'carbon-components-react';
+import { ModalWrapper } from 'carbon-components-react';
+import EditAppointment from "../pages/EditAppointment";
 
 
-export default function Appointment({ appointment, getAppointments, editAppointment }) {
+export default function Appointment({ appointment, getAppointments, editAppointment, editAppointmentData, showEditNotification, showDeleteNotification }) {
 
   async function deleteAppointment() {
     await Axios.delete(`http://localhost:5000/appointments/delete/${appointment._id}`);
+      showDeleteNotification();
       getAppointments();
   }
+
+  async function editApptBtn() {
+    editAppointment(appointment);
+    // var y = document.getElementById("editForm");
+    // y.style.display = "block";
+  }
+
 
   return (
         <StructuredListRow tabIndex={0}>
@@ -37,8 +47,26 @@ export default function Appointment({ appointment, getAppointments, editAppointm
             {appointment.status}
           </StructuredListCell>
           <StructuredListCell>
-            <Button kind='secondary' size='field' onClick={() => editAppointment(appointment)}>Edit</Button>
-            <Button kind='danger' size='field' onClick={deleteAppointment}>Delete</Button>
+
+
+          <ModalWrapper
+            buttonTriggerText="Edit/Delete"
+            modalHeading="Edit or Delete Appointment"
+            modalLabel="Press ESC to return to your appointments"
+            passiveModal
+            size="sm"
+          >
+          <Button kind='secondary' size='field' onClick={editApptBtn}>Edit</Button>
+          <Button kind='danger' size='field' onClick={deleteAppointment}>Delete</Button>
+          <EditAppointment
+            editAppointmentData={editAppointmentData}
+            getAppointments={getAppointments}
+            showEditNotification={showEditNotification}
+            />
+
+    </ModalWrapper>
+
+
           </StructuredListCell>
         </StructuredListRow>
   );

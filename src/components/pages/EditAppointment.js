@@ -3,7 +3,7 @@ import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import Axios from "axios";
 
-import { Tile } from 'carbon-components-react';
+//import { Tile } from 'carbon-components-react';
 import { Form } from 'carbon-components-react';
 import { TextInput } from 'carbon-components-react';
 import { Button } from 'carbon-components-react';
@@ -15,7 +15,7 @@ import { TextArea } from 'carbon-components-react';
 
 
 
-export default function EditAppointment({ getAppointments, editAppointmentData }) {
+export default function EditAppointment({ getAppointments, editAppointmentData, showEditNotification }) {
   const { userData } = useContext(UserContext);
   const [editorPatient, setEditorPatient] = useState("");
   const [editorDoctorNurse, setEditorDoctorNurse] = useState("");
@@ -60,7 +60,9 @@ export default function EditAppointment({ getAppointments, editAppointmentData }
     setEditorNotes("");
     setEditorStatus("");
 
-    window.location.replace("/appointmentupdated");
+    showEditNotification();
+    getAppointments();
+
   }
 
 
@@ -71,8 +73,6 @@ export default function EditAppointment({ getAppointments, editAppointmentData }
     <div className="page">
       {userData.user ? (
         <>
-        <br/><br/><br/><br/>
-        <Tile><h2>Edit an appointment</h2></Tile><br/>
         <div className="appointment-editer">
           <Form onSubmit={saveAppointment}>
           <TextInput

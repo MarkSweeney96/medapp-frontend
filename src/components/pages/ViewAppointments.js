@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import Appointment from "../other/Appointment";
-import EditAppointment from "../pages/EditAppointment";
+//import EditAppointment from "../pages/EditAppointment";
 import Axios from "axios";
 
 import { Tile } from 'carbon-components-react';
@@ -11,6 +11,7 @@ import { StructuredListHead } from 'carbon-components-react';
 import { StructuredListRow } from 'carbon-components-react';
 import { StructuredListCell } from 'carbon-components-react';
 import { StructuredListBody } from 'carbon-components-react';
+import { InlineNotification } from 'carbon-components-react';
 
 
 export default function ViewAppointments(props) {
@@ -30,6 +31,7 @@ export default function ViewAppointments(props) {
 
   function editAppointment(appointmentData) {
     setEditAppointmentData(appointmentData);
+
   }
 
   function renderAppointments() {
@@ -39,9 +41,21 @@ export default function ViewAppointments(props) {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
     return sortedAppointments.map((appointment, i) => {
-      return <Appointment key={i} appointment={appointment} getAppointments={getAppointments} editAppointment={editAppointment} />
+      return <Appointment key={i} appointment={appointment} getAppointments={getAppointments} editAppointment={editAppointment} editAppointmentData={editAppointmentData} showDeleteNotification={showDeleteNotification} showEditNotification={showEditNotification} />
     })
   }
+
+  function showEditNotification() {
+    var x = document.getElementById("notificationEdit");
+    x.style.display = "block";
+
+}
+
+function showDeleteNotification() {
+  var x = document.getElementById("notificationDelete");
+  x.style.display = "block";
+
+}
 
 // if the user is logged in display appointments
 // if not, display not logged in component
@@ -51,6 +65,27 @@ export default function ViewAppointments(props) {
         <>
         <br/><br/><br/><br/>
         <Tile><h2>View appointments</h2></Tile><br/>
+
+        <div id="notificationDelete">
+          <InlineNotification
+            kind="success"
+            iconDescription="close"
+            subtitle=""
+            title="Appointment deleted successfully"
+            lowContrast
+          />
+        </div>
+        <div id="notificationEdit">
+          <InlineNotification
+            kind="success"
+            iconDescription="close"
+            subtitle=""
+            title="Appointment updated successfully"
+            lowContrast
+          />
+        </div>
+
+
         <StructuredListWrapper ariaLabel="Structured list">
       <StructuredListHead>
         <StructuredListRow
@@ -87,10 +122,6 @@ export default function ViewAppointments(props) {
           {renderAppointments()}
       </StructuredListBody>
     </StructuredListWrapper>
-
-    <EditAppointment
-    editAppointmentData={editAppointmentData}
-    />
         </>
       ) : (
         <>
