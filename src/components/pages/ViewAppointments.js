@@ -114,7 +114,10 @@ function showDeleteNotification() {
             Status
           </StructuredListCell>
           <StructuredListCell head>
-            Edit/Delete
+            Edit
+          </StructuredListCell>
+          <StructuredListCell head>
+            Delete
           </StructuredListCell>
         </StructuredListRow>
       </StructuredListHead>

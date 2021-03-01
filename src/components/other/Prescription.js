@@ -6,27 +6,25 @@ import { StructuredListCell } from 'carbon-components-react';
 import { Button } from 'carbon-components-react';
 import { Modal, ModalHeader, ComposedModal, ModalTitle, ModalBody, ModalFooter } from 'carbon-components-react';
 
-import EditAppointmentPatient from "../pages/EditAppointmentPatient";
-import EditAppointmentSec from "../pages/EditAppointmentSec";
+//import EditPrescription from "../pages/EditPrescription";
 
-export default function Appointment({ appointment, getAppointments, editAppointment, editAppointmentData, showEditNotification, showDeleteNotification }) {
+export default function Prescription({ prescription, getPrescriptions, editPrescription, editPrescriptionData, showEditNotification, showDeleteNotification }) {
 
 const [open, setOpen] = useState(false);
 const [open_del, setOpenDel] = useState(false);
 
-  async function deleteAppointment() {
-    await Axios.delete(`http://localhost:5000/appointments/delete/${appointment._id}`);
+  async function deletePrescription() {
+    await Axios.delete(`http://localhost:5000/prescriptions/delete/${prescription._id}`);
       showDeleteNotification();
-      getAppointments();
+      getPrescriptions();
       setOpenDel(false);
   }
 
-  async function editApptBtn() {
-    editAppointment(appointment);
+  async function viewPrescriptionBtn() {
     setOpen(true);
   }
 
-  async function deleteApptBtn() {
+  async function deletePrescriptionBtn() {
     setOpenDel(true);
   }
 
@@ -34,29 +32,29 @@ const [open_del, setOpenDel] = useState(false);
   return (
         <StructuredListRow tabIndex={0}>
           <StructuredListCell>
-            {appointment.patient}
+            {prescription.patient}
           </StructuredListCell>
           <StructuredListCell>
-            {appointment.doctor_nurse}
+            {prescription.doctor}
           </StructuredListCell>
           <StructuredListCell>
-            {appointment.date}
+            {prescription.date}
           </StructuredListCell>
           <StructuredListCell>
-            {appointment.time}
+            {prescription.time}
           </StructuredListCell>
           <StructuredListCell>
-            {appointment.symptoms && appointment.symptoms}
+            {prescription.medication}
           </StructuredListCell>
           <StructuredListCell>
-            {appointment.notes && appointment.notes}
+            {prescription.notes}
           </StructuredListCell>
           <StructuredListCell>
-            <strong>{appointment.status}</strong>
+            <strong>{prescription.complete}</strong>
           </StructuredListCell>
           <StructuredListCell>
 
-          <Button kind='primary' onClick={editApptBtn}>Edit</Button>
+          <Button kind='primary' onClick={viewPrescriptionBtn}>View</Button>
 
 
           <ComposedModal open={open} onClose={() => setOpen(false)}
@@ -64,16 +62,11 @@ const [open_del, setOpenDel] = useState(false);
           >
           <ModalHeader label="">
             <h2>
-              Edit Appointment
+              Prescription
             </h2>
           </ModalHeader>
           <ModalBody>
-            <EditAppointmentPatient
-              editAppointmentData={editAppointmentData}
-              getAppointments={getAppointments}
-              showEditNotification={showEditNotification}
-              setOpen={setOpen}
-              />
+          prescription data
           </ModalBody>
 
           </ComposedModal>
@@ -81,14 +74,15 @@ const [open_del, setOpenDel] = useState(false);
           </StructuredListCell>
 
           <StructuredListCell>
-            <Button kind='danger' onClick={deleteApptBtn}>Delete</Button>
+
+            <Button kind='danger' onClick={deletePrescriptionBtn}>Delete</Button>
 
           <ComposedModal
             open={open_del}
             onClose={() => setOpenDel(false)}
             size="sm"
           >
-           <ModalHeader label="" title="Are you sure you want to delete this appointment?" />
+           <ModalHeader label="" title="Are you sure you want to delete this prescription?" />
            <ModalFooter>
             <Button
               kind="secondary"
@@ -98,9 +92,9 @@ const [open_del, setOpenDel] = useState(false);
             </Button>
             <Button
               kind="danger"
-              onClick={deleteAppointment}
+              onClick={deletePrescription}
               >
-              Delete Appointment
+              Delete Prescription
             </Button>
           </ModalFooter>
           </ComposedModal>

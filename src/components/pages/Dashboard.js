@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import AppointmentDash from "../other/AppointmentDash";
+import PrescriptionDash from "../other/PrescriptionDash";
 import Axios from "axios";
 
 import { Tile, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from 'carbon-components-react';
@@ -10,9 +11,11 @@ import { Tile, StructuredListWrapper, StructuredListHead, StructuredListRow, Str
 export default function Dashboard() {
   const { userData } = useContext(UserContext);
   const [appointments, setAppointments] = useState([]);
+  const [prescriptions, setPrescriptions] = useState([]);
 
     useEffect(() => {
       getAppointmentsDash();
+      getPrescriptionsDash();
     }, []);
 
 
@@ -29,10 +32,29 @@ export default function Dashboard() {
     })
   }
 
+  function renderPrescriptionsDash() {
+    //sorts prescriptions based on the date and time they were greated (newest first)
+    let sortedPrescriptions = [...prescriptions];
+    let topThree = sortedPrescriptions.reverse().slice(0,3);
+    //console.log("top three " + topThree)
+    sortedPrescriptions = sortedPrescriptions.sort((a,b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    return topThree.map((prescription, i) => {
+      return <PrescriptionDash key={i} prescription={prescription} getPrescriptionsDash={getPrescriptionsDash}  />
+    })
+  }
+
   async function getAppointmentsDash() {
     const appointmentsRes = await Axios.get("http://localhost:5000/appointments/");
     console.log(appointmentsRes);
     setAppointments(appointmentsRes.data);
+  }
+
+  async function getPrescriptionsDash() {
+    const prescriptionsRes = await Axios.get("http://localhost:5000/prescriptions/");
+    console.log(prescriptionsRes);
+    setPrescriptions(prescriptionsRes.data);
   }
 
 
@@ -42,6 +64,13 @@ export default function Dashboard() {
     for (let i = 0; i < appointments.length; i++) {
       numAppts++;
     }
+
+    let prescMsg = "";
+    let prescSubHeading = "";
+    let numPresc = 0;
+      for (let i = 0; i < prescriptions.length; i++) {
+        numPresc++;
+      }
 
 
     function showApptsDash() {
@@ -72,7 +101,39 @@ export default function Dashboard() {
         console.log(numAppts);
         console.log(apptsMsg);
       }
+
+
+      function showPrescDash() {
+          if(numPresc == 0) {
+              prescMsg="You have no prescriptions available";
+              prescSubHeading="";
+          }
+
+          else if(numPresc == 1){
+            prescMsg="You have 1 prescription available";
+            prescSubHeading="Your newest prescription can be seen below";
+          }
+
+          else if (numPresc == 2){
+            prescMsg="You have 2 prescriptions available";
+            prescSubHeading="Your newest two prescriptions can be seen below";
+          }
+
+          else if (numPresc == 3){
+            prescMsg="You have 3 prescriptions available";
+            prescSubHeading="Your newest three prescriptions can be seen below";
+          }
+
+          else if (numPresc > 3){
+            prescMsg="You have " + numPresc + " prescriptions available";
+            prescSubHeading="Your newest prescriptions can be seen below. All other prescriptions can be seen on the 'view my prescriptions' page.";
+          }
+          console.log(numPresc);
+          console.log(prescMsg);
+        }
+
     showApptsDash();
+    showPrescDash();
 
 // if the user is logged in display a welcome message
 // if not, alert them they are not logged in and provied a login link
@@ -118,7 +179,8 @@ export default function Dashboard() {
 
     <Tile>
         <div>
-          <h3>You have X Available Prescription(s)</h3>
+        <h2>{prescMsg}</h2>
+        {prescSubHeading}
         </div>
     </Tile>
     <br/>
@@ -138,40 +200,12 @@ export default function Dashboard() {
         Time
       </StructuredListCell>
       <StructuredListCell head>
-        Status
+        Complete
       </StructuredListCell>
     </StructuredListRow>
   </StructuredListHead>
   <StructuredListBody>
-    <StructuredListRow tabIndex={0}>
-      <StructuredListCell>
-        Dr. Alex Karev
-      </StructuredListCell>
-      <StructuredListCell>
-        2021-01-01
-      </StructuredListCell>
-      <StructuredListCell>
-        12:00
-      </StructuredListCell>
-      <StructuredListCell>
-        Waiting for collection
-      </StructuredListCell>
-    </StructuredListRow>
-
-    <StructuredListRow tabIndex={0}>
-      <StructuredListCell>
-        Dr. Alex Karev
-      </StructuredListCell>
-      <StructuredListCell>
-        2021-01-01
-      </StructuredListCell>
-      <StructuredListCell>
-        12:00
-      </StructuredListCell>
-      <StructuredListCell>
-        Waiting for collection
-      </StructuredListCell>
-    </StructuredListRow>
+  {renderPrescriptionsDash()}
 
   </StructuredListBody>
 </StructuredListWrapper>
