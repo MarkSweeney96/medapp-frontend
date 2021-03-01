@@ -10,12 +10,13 @@ import { Button } from 'carbon-components-react';
 import { Select } from 'carbon-components-react';
 import { SelectItem } from 'carbon-components-react';
 import { TextArea } from 'carbon-components-react';
+import { ModalFooter } from 'carbon-components-react';
 //import { DatePicker } from 'carbon-components-react';
 //import { DatePickerInput } from 'carbon-components-react';
 
 
 
-export default function EditAppointment({ getAppointments, editAppointmentData, showEditNotification }) {
+export default function EditAppointment({ getAppointments, editAppointmentData, showEditNotification, setOpen }) {
   const { userData } = useContext(UserContext);
   const [editorPatient, setEditorPatient] = useState("");
   const [editorDoctorNurse, setEditorDoctorNurse] = useState("");
@@ -24,6 +25,7 @@ export default function EditAppointment({ getAppointments, editAppointmentData, 
   const [editorSymptoms, setEditorSymptoms] = useState("");
   const [editorNotes, setEditorNotes] = useState("");
   const [editorStatus, setEditorStatus] = useState("");
+
 
   useEffect(() => {
     if (editAppointmentData) {
@@ -73,7 +75,8 @@ export default function EditAppointment({ getAppointments, editAppointmentData, 
     <div className="page">
       {userData.user ? (
         <>
-        <div className="appointment-editer">
+          <span><strong>TEMPLATE VERSION OF THE EDIT FORM (EDIT ALL FIELDS)</strong></span>
+        <div id="editForm" className="appointment-editer">
           <Form onSubmit={saveAppointment}>
           <TextInput
             id="editor-patinet"
@@ -167,8 +170,23 @@ export default function EditAppointment({ getAppointments, editAppointmentData, 
                 value="cancelled"
               />
           </Select>
-          <br/>
-            <Button type="submit">Update Appointment</Button>
+
+          <ModalFooter>
+          <Button
+            kind="secondary"
+            onClick={() => setOpen(false)}
+          >
+            Close
+          </Button>
+          <Button
+            kind="primary"
+            type="submit"
+            onClick={() => setOpen(false)}
+            >
+            Update Appointment
+          </Button>
+          </ModalFooter>
+
           </Form>
 
         </div>

@@ -1,21 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import Axios from "axios";
 
-import { Tile } from 'carbon-components-react';
+//import { Tile } from 'carbon-components-react';
 import { Form } from 'carbon-components-react';
 import { TextInput } from 'carbon-components-react';
 import { Button } from 'carbon-components-react';
 import { Select } from 'carbon-components-react';
 import { SelectItem, SelectItemGroup } from 'carbon-components-react';
 import { TextArea } from 'carbon-components-react';
-//import { DatePicker } from 'carbon-components-react';
-//import { DatePickerInput } from 'carbon-components-react';
+import { ModalFooter } from 'carbon-components-react';
+import { DatePicker } from 'carbon-components-react';
+import { DatePickerInput } from 'carbon-components-react';
 
 
 
-export default function BookAppointment() {
+export default function EditAppointment({ getAppointments, editAppointmentData, showEditNotification, setOpen }) {
   const { userData } = useContext(UserContext);
   const [editorPatient, setEditorPatient] = useState("");
   const [editorDoctorNurse, setEditorDoctorNurse] = useState("");
@@ -25,20 +26,33 @@ export default function BookAppointment() {
   const [editorNotes, setEditorNotes] = useState("");
   const [editorStatus, setEditorStatus] = useState("");
 
+
+  useEffect(() => {
+    if (editAppointmentData) {
+      setEditorPatient(editAppointmentData.patient);
+      setEditorDoctorNurse(editAppointmentData.doctor_nurse);
+      setEditorDate(editAppointmentData.date);
+      setEditorTime(editAppointmentData.time);
+      setEditorSymptoms(editAppointmentData.symptoms);
+      setEditorNotes(editAppointmentData.notes);
+      setEditorStatus(editAppointmentData.status);
+    }
+
+  }, [editAppointmentData]);
+
   async function saveAppointment(e){
     e.preventDefault();
 
     const appointmentData = {
-      patient: userData.user.name,
+      patient: editorPatient,
       doctor_nurse: editorDoctorNurse,
       date: editorDate,
       time: editorTime,
       symptoms: editorSymptoms ? editorSymptoms : "Not provided",
       notes: editorNotes ? editorNotes : "Not provided",
-      status: "Pending"
-      //status: editorStatus
+      status: editorStatus
     }
-    await Axios.post("http://localhost:5000/appointments/create", appointmentData);
+    await Axios.put(`http://localhost:5000/appointments/edit/${editAppointmentData._id}`, appointmentData);
 
     setEditorPatient("");
     setEditorDoctorNurse("");
@@ -48,8 +62,12 @@ export default function BookAppointment() {
     setEditorNotes("");
     setEditorStatus("");
 
-    window.location.replace("/appointmentconfirmation");
+    showEditNotification();
+    getAppointments();
+
   }
+
+
 
 // if the user is logged in display a book appointment form
 // if not, alert them they are not logged in and provied a login link
@@ -57,25 +75,21 @@ export default function BookAppointment() {
     <div className="page">
       {userData.user ? (
         <>
-        <br/><br/><br/><br/>
-        <Tile><h2>Book an appointment</h2></Tile><br/>
-        <div className="appointment-editer">
-          <Form action="/appointmentconfirmation" onSubmit={saveAppointment}>
+          <span><strong>SECRETARY VERSION OF THE EDIT FORM</strong></span>
+        <div id="editForm" className="appointment-editer">
+          <Form onSubmit={saveAppointment}>
+          <br/>Patient: {editorPatient}<br/><br/>
           <br/>
+
           <Select
               defaultValue=""
               id="editor-doctor_nurse"
               invalidText=""
               labelText="Medical Professional"
-              helperText=""
+              helperText="Pick a doctor or nurse"
               value={editorDoctorNurse}
               onChange={(e) => setEditorDoctorNurse(e.target.value)}
             >
-
-              <SelectItem
-                text="Select Doctor or Nurse"
-                value=""
-              />
             <SelectItemGroup label="Doctors">
               <SelectItem
                 text="Dr. Meredith Grey"
@@ -123,18 +137,17 @@ export default function BookAppointment() {
             </SelectItemGroup>
 
           </Select>
+
           <br/>
-
-
           <TextInput
-            id="editor-date"
-            type="text"
-            placeholder="YYYY-MM-DD"
-            labelText="Date"
-            helperText=""
-            value={editorDate}
-            onChange={(e) => setEditorDate(e.target.value)}
-          />
+          id="editor-date"
+          type="text"
+          placeholder="YYYY-MM-DD"
+          labelText="Date"
+          helperText=""
+          value={editorDate}
+          onChange={(e) => setEditorDate(e.target.value)}
+        />
           <br/>
 
           <TextInput
@@ -147,30 +160,55 @@ export default function BookAppointment() {
             onChange={(e) => setEditorTime(e.target.value)}
           />
           <br/>
-
-          <TextInput
-            id="editor-symptoms"
-            type="text"
-            placeholder="Enter symptoms here..."
-            labelText="Symptoms (optional)"
-            helperText="Enter any symptoms you have"
-            value={editorSymptoms}
-            onChange={(e) => setEditorSymptoms(e.target.value)}
-          />
+          Symptoms: {editorSymptoms}<br/>
+          <br/>
+            Notes: {editorNotes}<br/>
           <br/>
 
-          <TextArea
-            id="editor-notes"
-            type="text"
-            placeholder="Enter notes here..."
-            labelText="Notes (optional)"
-            helperText="Enter any additional notes for your nurse / doctor"
-            value={editorNotes}
-            onChange={(e) => setEditorNotes(e.target.value)}
-          />
+          <Select
+              defaultValue=""
+              id="editor-status"
+              invalidText=""
+              labelText="Appointment Status"
+              helperText=""
+              value={editorStatus}
+              onChange={(e) => setEditorStatus(e.target.value)}
+            >
+              <SelectItem
+                text="Pick Status"
+                value=""
+              />
+              <SelectItem
+                text="Pending"
+                value="Pending"
+              />
+              <SelectItem
+                text="Confirmed"
+                value="Confirmed"
+              />
+              <SelectItem
+                text="Cancelled"
+                value="Cancelled"
+              />
+          </Select>
+          <br/><br/>
 
-          <br/>
-            <Button type="submit">Book Appointment</Button>
+          <ModalFooter>
+          <Button
+            kind="secondary"
+            onClick={() => setOpen(false)}
+          >
+            Close
+          </Button>
+          <Button
+            kind="primary"
+            type="submit"
+            onClick={() => setOpen(false)}
+            >
+            Update Appointment
+          </Button>
+          </ModalFooter>
+
           </Form>
 
         </div>

@@ -4,7 +4,7 @@ import Axios from "axios";
 
 import Dashboard from "./components/pages/Dashboard";
 import BookAppointment from "./components/pages/BookAppointment";
-import EditAppointment from "./components/pages/EditAppointment";
+import EditAppointmentPatient from "./components/pages/EditAppointmentPatient";
 import ViewAppointments from "./components/pages/ViewAppointments";
 import ViewPrescriptions from "./components/pages/ViewPrescriptions";
 import MyAccount from "./components/pages/MyAccount";
@@ -61,7 +61,6 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/bookappointment" component={BookAppointment} />
-          <Route exact path="/editappointment" component={EditAppointment} />
           <Route exact path="/appointmentconfirmation" component={AppointmentBooked} />
           <Route exact path="/viewappointments" component={ViewAppointments} />
           <Route exact path="/viewprescriptions" component={ViewPrescriptions} />
