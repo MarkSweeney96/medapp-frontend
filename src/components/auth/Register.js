@@ -23,6 +23,7 @@ export default function Register() {
   const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
+
   const submit = async (e) => {
     e.preventDefault();
 
@@ -45,30 +46,16 @@ export default function Register() {
         history.push("/");
     } catch(err) {
       //sets error message if there is one to display from the backend
-      err.response.data.msg && setError(err.response.data.msg);
+      err.response.data && setError(err.response.data);
     }
 
   };
+
   //{error &&... if there is an error create error message with error text from backend
   // clear error function resets error message to undefined
   return (
     <div className="page">
       <h2>Register</h2>
-      {error && (
-        <ErrorMsg
-          message= {
-            <InlineNotification
-              lowContrast
-              hideCloseButton
-              kind="error"
-                actions={<NotificationActionButton>Clear</NotificationActionButton>}
-              iconDescription="close error message"
-              title={error}
-            />
-          }
-        clearError={() => setError(undefined) }
-        />
-      )}
       <Form className="form" onSubmit={submit}>
       <TextInput
         id="register-email"
@@ -79,17 +66,19 @@ export default function Register() {
         onChange={(e) => setEmail(e.target.value)}
       />
 
-      <TextInput
+      <TextInput.PasswordInput
         id="register-password"
-        type="password"
+        hidePasswordLabel="Hide password"
+        showPasswordLabel="Show password"
         placeholder="Password"
         helperText="Enter your password"
         //sets password state to whatever is inputted into the password field
         onChange={(e) => setPassword(e.target.value)}
       />
-      <TextInput
+      <TextInput.PasswordInput
         id="password"
-        type="password"
+        hidePasswordLabel="Hide password"
+        showPasswordLabel="Show password"
         placeholder="Verify Password"
         helperText="Verify your password"
         //sets verify password state to whatever is inputted into the verify password field

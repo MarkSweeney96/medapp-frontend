@@ -45,6 +45,9 @@ export default function UIShell() {
                 <SideNavLink href="bookappointment">
                   Book an appointment
                 </SideNavLink>
+                <SideNavLink href="createprescription">
+                  Create a prescription
+                </SideNavLink>
                 <SideNavLink href="viewappointments">
                   View my appointments
                 </SideNavLink>

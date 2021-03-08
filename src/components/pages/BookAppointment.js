@@ -10,8 +10,8 @@ import { Button } from 'carbon-components-react';
 import { Select } from 'carbon-components-react';
 import { SelectItem, SelectItemGroup } from 'carbon-components-react';
 import { TextArea } from 'carbon-components-react';
-//import { DatePicker } from 'carbon-components-react';
-//import { DatePickerInput } from 'carbon-components-react';
+// import { DatePicker } from 'carbon-components-react';
+// import { DatePickerInput } from 'carbon-components-react';
 
 
 
@@ -125,16 +125,16 @@ export default function BookAppointment() {
           </Select>
           <br/>
 
-
           <TextInput
             id="editor-date"
-            type="text"
+            type="date"
             placeholder="YYYY-MM-DD"
             labelText="Date"
             helperText=""
             value={editorDate}
             onChange={(e) => setEditorDate(e.target.value)}
           />
+
           <br/>
 
           <TextInput

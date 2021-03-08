@@ -16,7 +16,7 @@ import { DatePickerInput } from 'carbon-components-react';
 
 
 
-export default function EditAppointmentSec({ getAppointments, editAppointmentData, showEditNotification, setOpen }) {
+export default function EditAppointmentDocNurse({ getAppointments, editAppointmentData, showEditNotification, setOpen }) {
   const { userData } = useContext(UserContext);
   const [editorPatient, setEditorPatient] = useState("");
   const [editorDoctorNurse, setEditorDoctorNurse] = useState("");
@@ -75,69 +75,11 @@ export default function EditAppointmentSec({ getAppointments, editAppointmentDat
     <div className="page">
       {userData.user ? (
         <>
-          <span><strong>SECRETARY VERSION OF THE EDIT FORM</strong></span>
+          <span><strong>DOCTOR/NURSE VERSION OF THE EDIT FORM</strong></span>
         <div id="editForm" className="appointment-editer">
           <Form onSubmit={saveAppointment}>
-          <br/>Patient: {editorPatient}<br/><br/>
-          <br/>
-
-          <Select
-              defaultValue=""
-              id="editor-doctor_nurse"
-              invalidText=""
-              labelText="Medical Professional"
-              helperText="Pick a doctor or nurse"
-              value={editorDoctorNurse}
-              onChange={(e) => setEditorDoctorNurse(e.target.value)}
-            >
-            <SelectItemGroup label="Doctors">
-              <SelectItem
-                text="Dr. Meredith Grey"
-                value="Dr. Meredith Grey"
-              />
-              <SelectItem
-                text="Dr. Derek Shepherd"
-                value="Dr. Derek Shepherd"
-              />
-              <SelectItem
-                text="Dr. Alex Karev"
-                value="Dr. Alex Karev"
-              />
-              <SelectItem
-                text="Dr. George O'Malley"
-                value="Dr. George O'Malley"
-              />
-              <SelectItem
-                text="Dr. Miranda Bailey"
-                value="Dr. Miranda Bailey"
-              />
-            </SelectItemGroup>
-
-            <SelectItemGroup label="Nurses">
-              <SelectItem
-                text="Nurse April Kepner"
-                value="Nurse April Kepner"
-              />
-              <SelectItem
-                text="Nurse Andrew Deluca"
-                value="Nurse Andrew Deluca"
-              />
-              <SelectItem
-                text="Nurse Arizona Robbins"
-                value="Nurse Arizona Robbins"
-              />
-              <SelectItem
-                text="Nurse Jackson Avery"
-                value="Nurse Jackson Avery"
-              />
-              <SelectItem
-                text="Nurse Levi Schmitt"
-                value="Nurse Levi Schmitt"
-              />
-            </SelectItemGroup>
-
-          </Select>
-
+          <br/>Patient: {editorPatient}<br/>
+          <br/>Medical Professional: {editorDoctorNurse}<br/>
           <br/>
           <TextInput
           id="editor-date"

@@ -6,11 +6,13 @@ import { StructuredListCell } from 'carbon-components-react';
 import { Button } from 'carbon-components-react';
 import { Modal, ModalHeader, ComposedModal, ModalTitle, ModalBody, ModalFooter } from 'carbon-components-react';
 
-//import EditPrescription from "../pages/EditPrescription";
+import EditPrescriptionPhar from "../pages/EditPrescriptionPhar";
+import ViewPrescription from "../pages/ViewPrescription";
 
 export default function Prescription({ prescription, getPrescriptions, editPrescription, editPrescriptionData, showEditNotification, showDeleteNotification }) {
 
 const [open, setOpen] = useState(false);
+const [openView, setOpenView] = useState(false);
 const [open_del, setOpenDel] = useState(false);
 
   async function deletePrescription() {
@@ -20,9 +22,19 @@ const [open_del, setOpenDel] = useState(false);
       setOpenDel(false);
   }
 
-  async function viewPrescriptionBtn() {
+  async function editPresBtn() {
+    editPrescription(prescription);
     setOpen(true);
   }
+
+  async function viewPresBtn() {
+    editPrescription(prescription);
+    setOpenView(true);
+  }
+
+  // async function viewPrescriptionBtn() {
+  //   setOpen(true);
+  // }
 
   async function deletePrescriptionBtn() {
     setOpenDel(true);
@@ -54,19 +66,49 @@ const [open_del, setOpenDel] = useState(false);
           </StructuredListCell>
           <StructuredListCell>
 
-          <Button kind='primary' onClick={viewPrescriptionBtn}>View</Button>
+          <Button kind='primary' onClick={viewPresBtn}>View</Button>
 
+          <ComposedModal open={openView} onClose={() => setOpenView(false)}
+          size="sm"
+          >
+          <ModalHeader label="">
+            <h2>
+              View Prescription
+            </h2>
+          </ModalHeader>
+          <ModalBody>
+            <ViewPrescription
+              editPrescriptionData={editPrescriptionData}
+              getPrescriptions={getPrescriptions}
+              setOpenView={setOpenView}
+              />
+          </ModalBody>
+
+          </ComposedModal>
+
+
+
+
+          </StructuredListCell>
+          <StructuredListCell>
+
+          <Button kind='secondary' onClick={editPresBtn}>Edit</Button>
 
           <ComposedModal open={open} onClose={() => setOpen(false)}
           size="sm"
           >
           <ModalHeader label="">
             <h2>
-              Prescription
+              Edit Prescription Status (PHARMACY ONLY)
             </h2>
           </ModalHeader>
           <ModalBody>
-          prescription data
+            <EditPrescriptionPhar
+              editPrescriptionData={editPrescriptionData}
+              getPrescriptions={getPrescriptions}
+              showEditNotification={showEditNotification}
+              setOpen={setOpen}
+              />
           </ModalBody>
 
           </ComposedModal>

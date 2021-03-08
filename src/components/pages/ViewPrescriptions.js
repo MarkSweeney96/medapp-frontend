@@ -17,7 +17,7 @@ import { InlineNotification } from 'carbon-components-react';
 export default function ViewPrescriptions() {
   const { userData } = useContext(UserContext);
   const [prescriptions, setPrescriptions] = useState([]);
-  const [editPrescriptionsData, setEditPrescriptionsData] = useState(null);
+  const [editPrescriptionData, setEditPrescriptionData] = useState(null);
 
   useEffect(() => {
     getPrescriptions();
@@ -29,10 +29,10 @@ export default function ViewPrescriptions() {
     setPrescriptions(prescriptionsRes.data);
   }
 
-  // function editPrescription(prescriptionData) {
-  //   setEditPrescriptionData(prescriptionData);
-  //
-  // }
+  function editPrescription(prescriptionData) {
+    setEditPrescriptionData(prescriptionData);
+
+  }
 
   function renderPrescriptions() {
     //sorts prescriptions based on the date and time they were created (newest first)
@@ -41,19 +41,19 @@ export default function ViewPrescriptions() {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
     return sortedPrescriptions.map((prescription, i) => {
-      return <Prescription key={i} prescription={prescription} getPrescriptions={getPrescriptions} showDeleteNotification={showDeleteNotification} showEditNotification={showEditNotification} />
+      return <Prescription key={i} prescription={prescription} getPrescriptions={getPrescriptions} editPrescription={editPrescription} editPrescriptionData={editPrescriptionData} showDeleteNotification={showDeleteNotification} showEditNotification={showEditNotification} />
     })
   }
-
-   function showEditNotification() {
-    var x = document.getElementById("notificationEdit");
-    x.style.display = "block";
-
-}
 
 function showDeleteNotification() {
   var x = document.getElementById("notificationDelete");
   x.style.display = "block";
+
+}
+
+function showEditNotification() {
+ var x = document.getElementById("notificationEdit");
+ x.style.display = "block";
 
 }
 
@@ -80,7 +80,7 @@ function showDeleteNotification() {
             kind="success"
             iconDescription="close"
             subtitle=""
-            title="Prescription updated successfully"
+            title="Prescription status updated successfully"
             lowContrast
           />
         </div>
@@ -112,6 +112,9 @@ function showDeleteNotification() {
           </StructuredListCell>
           <StructuredListCell head>
             Complete
+          </StructuredListCell>
+          <StructuredListCell head>
+            View
           </StructuredListCell>
           <StructuredListCell head>
             Edit

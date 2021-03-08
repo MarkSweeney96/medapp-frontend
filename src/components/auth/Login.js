@@ -72,9 +72,8 @@ export default function Login() {
       />
 
 
-      <TextInput
+      <TextInput.PasswordInput
         id="login-password"
-        type="password"
         placeholder="Password"
         helperText="Enter your password"
         //sets password state to whatever is inputted into the password field

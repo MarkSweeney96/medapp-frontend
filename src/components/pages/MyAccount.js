@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 
+import { StructuredListWrapper, StructuredListBody, StructuredListRow, StructuredListCell, Button } from 'carbon-components-react';
+
 
 export default function MyAccount() {
   const { userData } = useContext(UserContext);
@@ -12,8 +14,51 @@ export default function MyAccount() {
     <div className="page">
       {userData.user ? (
         <>
-        <h3>This is the my account page</h3>
-        <h3>User: { userData.user.name }</h3>
+        <br/><br/><br/>
+        <h2>My Account</h2><br/>
+        <StructuredListWrapper ariaLabel="Structured list">
+      <StructuredListBody>
+
+        <StructuredListRow tabIndex={0}>
+          <StructuredListCell>
+            Name
+          </StructuredListCell>
+          <StructuredListCell>
+            { userData.user.name }
+          </StructuredListCell>
+        </StructuredListRow>
+
+        <StructuredListRow tabIndex={0}>
+          <StructuredListCell>
+            Email
+          </StructuredListCell>
+          <StructuredListCell>
+            { userData.user.email }
+          </StructuredListCell>
+        </StructuredListRow>
+
+        <StructuredListRow tabIndex={0}>
+          <StructuredListCell>
+            Address
+          </StructuredListCell>
+          <StructuredListCell>
+            { userData.user.address }
+          </StructuredListCell>
+        </StructuredListRow>
+
+        <StructuredListRow tabIndex={0}>
+          <StructuredListCell>
+            Phone
+          </StructuredListCell>
+          <StructuredListCell>
+            { userData.user.phone }
+          </StructuredListCell>
+        </StructuredListRow>
+
+      </StructuredListBody>
+    </StructuredListWrapper>
+    <Button>Edit my personal info</Button>
+
         </>
       ) : (
         <>

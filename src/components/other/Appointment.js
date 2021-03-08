@@ -8,6 +8,7 @@ import { Modal, ModalHeader, ComposedModal, ModalTitle, ModalBody, ModalFooter }
 
 import EditAppointmentPatient from "../pages/EditAppointmentPatient";
 import EditAppointmentSec from "../pages/EditAppointmentSec";
+import EditAppointmentDocNurse from "../pages/EditAppointmentDocNurse";
 
 export default function Appointment({ appointment, getAppointments, editAppointment, editAppointmentData, showEditNotification, showDeleteNotification }) {
 
@@ -68,7 +69,7 @@ const [open_del, setOpenDel] = useState(false);
             </h2>
           </ModalHeader>
           <ModalBody>
-            <EditAppointmentPatient
+            <EditAppointmentDocNurse
               editAppointmentData={editAppointmentData}
               getAppointments={getAppointments}
               showEditNotification={showEditNotification}
