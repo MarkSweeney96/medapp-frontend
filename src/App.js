@@ -7,11 +7,12 @@ import BookAppointment from "./components/pages/BookAppointment";
 import CreatePrescription from "./components/pages/CreatePrescription";
 import EditAppointmentPatient from "./components/pages/EditAppointmentPatient";
 import ViewAppointments from "./components/pages/ViewAppointments";
-import ViewUserAccount from "./components/pages/ViewUserAccount";
+import AdminUsers from "./components/pages/AdminUsers";
 import ViewPrescriptions from "./components/pages/ViewPrescriptions";
 import MyAccount from "./components/pages/MyAccount";
 import AppointmentBooked from "./components/pages/AppointmentBooked";
 import PrescriptionCreated from "./components/pages/PrescriptionCreated";
+import PharmacyScanner from "./components/pages/PharmacyScanner";
 
 import UIShell from "./components/layout/UIShell";
 import Login from "./components/auth/Login";
@@ -68,9 +69,11 @@ export default function App() {
           <Route exact path="/prescriptionconfirmation" component={PrescriptionCreated} />
           <Route exact path="/viewappointments" component={ViewAppointments} />
           <Route exact path="/viewprescriptions" component={ViewPrescriptions} />
+          <Route exact path="/admin" component={AdminUsers} />
           <Route exact path="/myaccount" component={MyAccount} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/pharmacyscanner" component={PharmacyScanner} />
         </Switch>
         </div>
       </UserContext.Provider>

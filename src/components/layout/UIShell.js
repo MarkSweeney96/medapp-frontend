@@ -57,6 +57,9 @@ export default function UIShell() {
                 <SideNavLink href="/myaccount">
                   My account
                 </SideNavLink>
+                <SideNavLink href="/pharmacyscanner">
+                  Pharmacy Scanner
+                </SideNavLink>
 
               </SideNavItems>
             </SideNav>

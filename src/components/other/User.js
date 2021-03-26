@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import UserContext from "../../context/UserContext";
 import Axios from "axios";
+import UserContext from "../../context/UserContext";
 
 import { StructuredListRow } from 'carbon-components-react';
 import { StructuredListCell } from 'carbon-components-react';
@@ -9,26 +9,29 @@ import { Modal, ModalHeader, ComposedModal, ModalTitle, ModalBody, ModalFooter }
 
 import EditUser from "../pages/EditUser";
 
-export default function UserInfo({ user, getUser, editUser, editUserData, showEditNotification }) {
+export default function User({ user, getUsers, editUser, editUserData, showEditNotification, showDeleteNotification }) {
 
-const { userData } = useContext(UserContext);
 const [open, setOpen] = useState(false);
-
-
+const [open_del, setOpenDel] = useState(false);
+const { userData } = useContext(UserContext);
 
   async function editUserBtn() {
     editUser(user);
     setOpen(true);
   }
 
+  // async function deleteUserBtn() {
+  //   setOpenDel(true);
+  // }
+
 
   return (
         <StructuredListRow tabIndex={0}>
           <StructuredListCell>
-            {userData.user.name}
+            {userData.user.email}
           </StructuredListCell>
           <StructuredListCell>
-            {userData.user.email}
+            {userData.user.name}
           </StructuredListCell>
           <StructuredListCell>
             {userData.user.address}
@@ -36,10 +39,9 @@ const [open, setOpen] = useState(false);
           <StructuredListCell>
             {userData.user.phone}
           </StructuredListCell>
-
           <StructuredListCell>
 
-          <Button kind='primary' onClick={editUserBtn}>Edit my info</Button>
+          <Button kind='primary' onClick={editUserBtn}>Edit</Button>
 
 
           <ComposedModal open={open} onClose={() => setOpen(false)}
@@ -47,13 +49,13 @@ const [open, setOpen] = useState(false);
           >
           <ModalHeader label="">
             <h2>
-              Edit my info
+              Edit User
             </h2>
           </ModalHeader>
           <ModalBody>
             <EditUser
               editUserData={editUserData}
-              getUser={getUser}
+              getUsers={getUsers}
               showEditNotification={showEditNotification}
               setOpen={setOpen}
               />
@@ -62,7 +64,6 @@ const [open, setOpen] = useState(false);
           </ComposedModal>
 
           </StructuredListCell>
-
         </StructuredListRow>
   );
 }

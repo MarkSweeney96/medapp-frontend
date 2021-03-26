@@ -56,6 +56,21 @@ export default function Register() {
   return (
     <div className="page">
       <h2>Register</h2>
+      {error && (
+        <ErrorMsg
+          message= {
+            <InlineNotification
+              lowContrast
+              hideCloseButton
+              kind="error"
+              actions={<NotificationActionButton>Clear</NotificationActionButton>}
+              iconDescription="close error message"
+              title={error}
+            />
+          }
+        clearError={() => setError(undefined) }
+        />
+      )}
       <Form className="form" onSubmit={submit}>
       <TextInput
         id="register-email"

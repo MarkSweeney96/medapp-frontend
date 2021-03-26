@@ -16,11 +16,9 @@ import { ModalFooter } from 'carbon-components-react';
 
 
 
-export default function EditUser({ getUser, editUserData, showEditNotification, setOpen }) {
+export default function EditUser({ getUsers, editUserData, showEditNotification, setOpen }) {
   const { userData } = useContext(UserContext);
   const [editorEmail, setEditorEmail] = useState("");
-  const [editorPassword, setEditorPassword] = useState("");
-  const [editorPasswordCheck, setEditorPasswordCheck] = useState("");
   const [editorName, setEditorName] = useState("");
   const [editorAddress, setEditorAddress] = useState("");
   const [editorPhone, setEditorPhone] = useState("");
@@ -28,13 +26,10 @@ export default function EditUser({ getUser, editUserData, showEditNotification, 
 
   useEffect(() => {
     if (editUserData) {
-
-      setEditorEmail(editorEmail);
-      //setEditorPassword(editUserData.password);
-      //setEditorPasswordCheck(editUserData.password_check);
-      setEditorName(editorName);
-      setEditorAddress(editorAddress);
-      setEditorPhone(editorPhone);
+      setEditorEmail(editUserData.email);
+      setEditorName(editUserData.name);
+      setEditorAddress(editUserData.address);
+      setEditorPhone(editUserData.phone);
     }
 
   }, [editUserData]);
@@ -44,8 +39,6 @@ export default function EditUser({ getUser, editUserData, showEditNotification, 
 
     const userData = {
       email: editorEmail,
-      password: "secret",
-      passwordCheck: "secret",
       name: editorName,
       address: editorAddress,
       phone: editorPhone
@@ -53,13 +46,12 @@ export default function EditUser({ getUser, editUserData, showEditNotification, 
     await Axios.put(`http://localhost:5000/users/edit/${editUserData._id}`, userData);
 
     setEditorEmail("");
-    setEditorPassword("");
-    setEditorPasswordCheck("");
     setEditorName("");
     setEditorAddress("");
     setEditorPhone("");
 
-    //showEditNotification();
+    showEditNotification();
+    getUsers();
 
   }
 
@@ -71,7 +63,7 @@ export default function EditUser({ getUser, editUserData, showEditNotification, 
     <div className="page">
       {userData.user ? (
         <>
-          <span><strong>EDIT USER { userData.user.id } { userData.user.name }</strong></span>
+          <span><strong>EDIT USER</strong></span>
         <div id="editForm" className="user-editer">
           <Form onSubmit={saveUser}>
           <TextInput
@@ -107,7 +99,7 @@ export default function EditUser({ getUser, editUserData, showEditNotification, 
           />
           <br/>
 
-          <TextArea
+          <TextInput
             id="editor-phone"
             type="text"
             placeholder=""
@@ -116,7 +108,7 @@ export default function EditUser({ getUser, editUserData, showEditNotification, 
             value={editorPhone}
             onChange={(e) => setEditorPhone(e.target.value)}
           />
-          <br/>
+
           <ModalFooter>
           <Button
             kind="secondary"
@@ -129,7 +121,7 @@ export default function EditUser({ getUser, editUserData, showEditNotification, 
             type="submit"
             onClick={() => setOpen(false)}
             >
-            Update My Info
+            Update User
           </Button>
           </ModalFooter>
 
