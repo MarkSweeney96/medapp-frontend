@@ -17,7 +17,7 @@ import { ModalFooter } from 'carbon-components-react';
 
 
 
-export default function EditPrescriptionPhar({ getPrescriptions, editPrescriptionData, showEditNotification, setOpen }) {
+export default function EditPrescriptionPhar({ qrId, getPrescriptions, editPrescriptionData, showEditNotification, setOpen }) {
   const { userData } = useContext(UserContext);
   const [editorId, setEditorId] = useState("");
   const [editorPatient, setEditorPatient] = useState("");
@@ -31,7 +31,7 @@ export default function EditPrescriptionPhar({ getPrescriptions, editPrescriptio
 
   useEffect(() => {
     if (editPrescriptionData) {
-      setEditorId(editPrescriptionData._id);
+      setEditorId(editPrescriptionData.qrId);
       setEditorPatient(editPrescriptionData.patient);
       setEditorDoctor(editPrescriptionData.doctor);
       setEditorDate(editPrescriptionData.date);
@@ -67,12 +67,10 @@ export default function EditPrescriptionPhar({ getPrescriptions, editPrescriptio
     setEditorNotes("");
     setEditorComplete("");
 
-    showEditNotification();
+    //showEditNotification();
     getPrescriptions();
 
   }
-
-
 
 // if the user is logged in display a book appointment form
 // if not, alert them they are not logged in and provied a login link
@@ -82,7 +80,8 @@ export default function EditPrescriptionPhar({ getPrescriptions, editPrescriptio
         <>
         <div id="editForm" className="prescription-editer">
           <Form onSubmit={savePrescription}>
-          <p>Prescription ID: {editorId}</p>
+          <p>QR ID: {qrId}</p>
+          <p>Prescription ID: {qrId}</p>
           <p>Patient: {editorPatient}</p>
           <p>Doctor: {editorDoctor}</p>
           <p>Date: {editorDate}</p>
@@ -111,9 +110,9 @@ export default function EditPrescriptionPhar({ getPrescriptions, editPrescriptio
                 value="No"
               />
           </Select>
-          <p><QRCode value={editorId} /></p>
 
-          <ModalFooter>
+
+
           <Button
             kind="secondary"
             onClick={() => setOpen(false)}
@@ -127,7 +126,7 @@ export default function EditPrescriptionPhar({ getPrescriptions, editPrescriptio
             >
             Update Status
           </Button>
-          </ModalFooter>
+
 
           </Form>
 
