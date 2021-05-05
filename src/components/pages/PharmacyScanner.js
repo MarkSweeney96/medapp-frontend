@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import { Link } from "react-router-dom";
-import { Button, Tile } from 'carbon-components-react';
+import { Button, Tile, ComposedModal, ModalHeader, ModalBody } from 'carbon-components-react';
 import Axios from "axios";
+
+import EditPrescriptionStatus from "../pages/EditPrescriptionStatus";
 
 import QrScan from 'react-qr-reader';
 
@@ -15,10 +17,13 @@ import { SelectItem } from 'carbon-components-react';
 import { TextArea } from 'carbon-components-react';
 import { ModalFooter } from 'carbon-components-react';
 
-export default function PharmacyScanner(getPrescriptions) {
-
+export default function PharmacyScanner() {
 
   const { userData } = useContext(UserContext);
+  const [prescription, setPrescription] = useState([]);
+  const [editPrescriptionData, setEditPrescriptionData] = useState(null);
+  const [open, setOpen] = useState(false);
+
 
   const [id, setId] = useState("");
   const [patient, setPatinet] = useState("");
@@ -41,6 +46,7 @@ export default function PharmacyScanner(getPrescriptions) {
   let qrTime = "";
   let qrMedication = "";
   let qrNotes = "";
+  let qrComplete = "";
 
   const [qrscan, setQrscan] = useState(null);
    const handleScan = data => {
@@ -50,6 +56,11 @@ export default function PharmacyScanner(getPrescriptions) {
    }
    const handleError = err => {
    console.error(err)
+   }
+
+   async function editPresBtn() {
+     editPrescription(prescription);
+     setOpen(true);
    }
 
    async function renderForm(){
@@ -62,6 +73,11 @@ export default function PharmacyScanner(getPrescriptions) {
 
    }
 
+   function editPrescription(prescriptionData) {
+     setEditPrescriptionData(prescriptionData);
+     console.log("prescription data");
+     console.log(prescriptionData);
+   }
 
    if (qrscan != null) {
      returnedQrResult = qrscan;
@@ -71,7 +87,9 @@ export default function PharmacyScanner(getPrescriptions) {
 
      const scannedPrescription = Axios.get(`http://localhost:5000/prescriptions/${returnedQrResult}`)
           .then((response) => {
+            console.log("returned result");
             console.log(response.data);
+            setPrescription(response.data);
 
             qrId = response.data._id;
             qrPatient = response.data.patient;
@@ -80,6 +98,7 @@ export default function PharmacyScanner(getPrescriptions) {
             qrTime = response.data.time;
             qrMedication = response.data.medication;
             qrNotes = response.data.notes;
+            qrComplete = response.data.complete;
 
             //console.log("the id is " + qrId);
             setId(qrId);
@@ -95,6 +114,7 @@ export default function PharmacyScanner(getPrescriptions) {
             setMedication(qrMedication);
             //console.log("the notes are " + qrNotes);
             setNotes(qrNotes);
+            setComplete(qrComplete);
        });
 
      // setPrescription(prescriptionRes.data);
@@ -119,7 +139,7 @@ export default function PharmacyScanner(getPrescriptions) {
                     delay={300}
                     onError={handleError}
                     onScan={handleScan}
-                     style={{ height: 250, width: 250 }}
+                    style={{ height: 250, width: 250 }}
                 />
             </div>
             </center>
@@ -130,20 +150,30 @@ export default function PharmacyScanner(getPrescriptions) {
             <div id="editPrescriptionForm" className="prescription-editer">
             <Form>
             <p>Prescription ID: {id}</p>
-            <p>Patient: {patient} </p>
-            <p>Doctor: {doctor} </p>
-            <p>Date: {date} </p>
-            <p>Time: {time} </p>
-            <p>Medication: {medication} </p>
-            <p>Notes: {notes} </p>
+            <p>Patient: {patient}</p>
+            <p>Doctor: {doctor}</p>
+            <p>Date: {date}</p>
+            <p>Time: {time}</p>
+            <p>Medication: {medication}</p>
+            <p>Notes: {notes}</p>
+            <p><strong>COLLECTED BY PATIENT: {complete}</strong></p>
             </Form>
+            <Button kind='secondary' onClick={editPresBtn}>Edit Prescription Status</Button>
 
+            <ComposedModal open={open} onClose={() => setOpen(false)}
+            size="sm"
+            >
+            <ModalBody>
+              <h3>Did the patient collect their prescription?</h3>
+              <EditPrescriptionStatus
+              setOpen={setOpen}
+              editPrescription={editPrescription}
+              editPrescriptionData={editPrescriptionData}
+              />
+            </ModalBody>
+            </ComposedModal>
             </div>
-
             </div>
-
-
-
       </div>
         </>
       ) : (

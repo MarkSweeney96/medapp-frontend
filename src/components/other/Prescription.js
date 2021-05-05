@@ -5,8 +5,9 @@ import { StructuredListRow } from 'carbon-components-react';
 import { StructuredListCell } from 'carbon-components-react';
 import { Button } from 'carbon-components-react';
 import { Modal, ModalHeader, ComposedModal, ModalTitle, ModalBody, ModalFooter } from 'carbon-components-react';
+import { QrCode16 } from '@carbon/icons-react';
 
-import EditPrescriptionPhar from "../pages/EditPrescriptionPhar";
+//import EditPrescriptionPhar from "../pages/EditPrescriptionPhar";
 import ViewPrescription from "../pages/ViewPrescription";
 
 export default function Prescription({ prescription, getPrescriptions, editPrescription, editPrescriptionData, showEditNotification, showDeleteNotification }) {
@@ -23,21 +24,13 @@ const [open_del, setOpenDel] = useState(false);
   }
 
   async function editPresBtn() {
-    editPrescription(prescription);
+    //editPrescription(prescription);
     setOpen(true);
   }
 
   async function viewPresBtn() {
     editPrescription(prescription);
     setOpenView(true);
-  }
-
-  // async function viewPrescriptionBtn() {
-  //   setOpen(true);
-  // }
-
-  async function deletePrescriptionBtn() {
-    setOpenDel(true);
   }
 
 
@@ -66,7 +59,7 @@ const [open_del, setOpenDel] = useState(false);
           </StructuredListCell>
           <StructuredListCell>
 
-          <Button kind='primary' onClick={viewPresBtn}>View</Button>
+          <Button kind='primary' onClick={viewPresBtn}><QrCode16 /></Button>
 
           <ComposedModal open={openView} onClose={() => setOpenView(false)}
           size="sm"
@@ -83,64 +76,7 @@ const [open_del, setOpenDel] = useState(false);
               setOpenView={setOpenView}
               />
           </ModalBody>
-
           </ComposedModal>
-
-
-
-
-          </StructuredListCell>
-          <StructuredListCell>
-
-          <Button kind='secondary' onClick={editPresBtn}>Edit</Button>
-
-          <ComposedModal open={open} onClose={() => setOpen(false)}
-          size="sm"
-          >
-          <ModalHeader label="">
-            <h2>
-              Edit Prescription Status (PHARMACY ONLY)
-            </h2>
-          </ModalHeader>
-          <ModalBody>
-            <EditPrescriptionPhar
-              editPrescriptionData={editPrescriptionData}
-              getPrescriptions={getPrescriptions}
-              showEditNotification={showEditNotification}
-              setOpen={setOpen}
-              />
-          </ModalBody>
-
-          </ComposedModal>
-
-          </StructuredListCell>
-
-          <StructuredListCell>
-
-            <Button kind='danger' onClick={deletePrescriptionBtn}>Delete</Button>
-
-          <ComposedModal
-            open={open_del}
-            onClose={() => setOpenDel(false)}
-            size="sm"
-          >
-           <ModalHeader label="" title="Are you sure you want to delete this prescription?" />
-           <ModalFooter>
-            <Button
-              kind="secondary"
-              onClick={() => setOpenDel(false)}
-            >
-              Close
-            </Button>
-            <Button
-              kind="danger"
-              onClick={deletePrescription}
-              >
-              Delete Prescription
-            </Button>
-          </ModalFooter>
-          </ComposedModal>
-
           </StructuredListCell>
         </StructuredListRow>
   );

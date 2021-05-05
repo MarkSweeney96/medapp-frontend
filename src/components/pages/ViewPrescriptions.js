@@ -31,7 +31,6 @@ export default function ViewPrescriptions() {
 
   function editPrescription(prescriptionData) {
     setEditPrescriptionData(prescriptionData);
-
   }
 
   function renderPrescriptions() {
@@ -41,7 +40,13 @@ export default function ViewPrescriptions() {
       return new Date(b.createdAt) - new Date(a.createdAt);
     });
     return sortedPrescriptions.map((prescription, i) => {
-      return <Prescription key={i} prescription={prescription} getPrescriptions={getPrescriptions} editPrescription={editPrescription} editPrescriptionData={editPrescriptionData} showDeleteNotification={showDeleteNotification} showEditNotification={showEditNotification} />
+      return <Prescription
+      key={i} prescription={prescription}
+      getPrescriptions={getPrescriptions}
+      editPrescription={editPrescription}
+      editPrescriptionData={editPrescriptionData}
+      showDeleteNotification={showDeleteNotification}
+      showEditNotification={showEditNotification} />
     })
   }
 
@@ -54,7 +59,6 @@ function showDeleteNotification() {
 function showEditNotification() {
  var x = document.getElementById("notificationEdit");
  x.style.display = "block";
-
 }
 
 // if the user is logged in display a welcome message
@@ -114,13 +118,7 @@ function showEditNotification() {
             Complete
           </StructuredListCell>
           <StructuredListCell head>
-            View
-          </StructuredListCell>
-          <StructuredListCell head>
-            Edit
-          </StructuredListCell>
-          <StructuredListCell head>
-            Delete
+            View QR Code
           </StructuredListCell>
         </StructuredListRow>
       </StructuredListHead>
