@@ -57,7 +57,6 @@ export default function Dashboard() {
     setPrescriptions(prescriptionsRes.data);
   }
 
-
   let apptsMsg = "";
   let apptsSubHeading = "";
   let numAppts = 0;
@@ -212,7 +211,9 @@ export default function Dashboard() {
         </>
       ) : (
         <>
+        <div>
           <NotLoggedIn />
+        </div>
         </>
       )}
     </div>

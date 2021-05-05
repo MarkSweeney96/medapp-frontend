@@ -1,73 +1,111 @@
-import React from "react";
-//import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 import AuthOptions from "../auth/AuthOptions";
-
-//import { Button } from 'carbon-components-react';
-
+import UserContext from "../../context/UserContext";
 import HeaderContainer from "carbon-components-react/lib/components/UIShell/HeaderContainer";
+import { HealthCross24, ReminderMedical16, Dashboard16, Stethoscope16, PillsAdd16, Pills16, UserAvatar16, QrCode16, ToolBox16 } from '@carbon/icons-react';
+
 import {
-  //Content,
   Header,
   HeaderMenuButton,
   HeaderName,
   HeaderGlobalBar,
-  //HeaderGlobalAction,
   SkipToContent,
   SideNav,
   SideNavItems,
   SideNavLink
 } from "carbon-components-react/lib/components/UIShell";
 
-export default function UIShell() {
-  return (
-    <div className="container">
-    <HeaderContainer
-      render={({ isSideNavExpanded, onClickSideNavExpand }) => (
-        <>
-          <Header aria-label="MedApp">
-            <SkipToContent />
-            <HeaderMenuButton
-              aria-label="Open menu"
-              onClick={onClickSideNavExpand}
-              isActive={isSideNavExpanded}
-            />
-            <HeaderName href="/" prefix="">
-              MedApp
-            </HeaderName>
-            <HeaderGlobalBar>
-                <AuthOptions />
-            </HeaderGlobalBar>
-            <SideNav aria-label="Side navigation" expanded={isSideNavExpanded}>
-              <SideNavItems>
-                <SideNavLink href="/">
-                  Dashboard
-                </SideNavLink>
-                <SideNavLink href="bookappointment">
-                  Book an appointment
-                </SideNavLink>
-                <SideNavLink href="createprescription">
-                  Create a prescription
-                </SideNavLink>
-                <SideNavLink href="viewappointments">
-                  View my appointments
-                </SideNavLink>
-                <SideNavLink href="viewprescriptions">
-                  View my presctiptions
-                </SideNavLink>
-                <SideNavLink href="/myaccount">
-                  My account
-                </SideNavLink>
-                <SideNavLink href="/pharmacyscanner">
-                  Pharmacy Scanner
-                </SideNavLink>
 
-              </SideNavItems>
-            </SideNav>
-          </Header>
+
+export default function UIShell() {
+  const { userData } = useContext(UserContext);
+
+  return (
+    <div className="page">
+      {userData.user ? (
+        <>
+
+        <div className="container">
+        <HeaderContainer
+          render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+            <>
+              <Header aria-label="MedApp">
+                <SkipToContent />
+                <HeaderMenuButton
+                  aria-label="Open menu"
+                  onClick={onClickSideNavExpand}
+                  isActive={isSideNavExpanded}
+                />
+                <HeaderName href="/" prefix="">
+                  MedApp <HealthCross24 />
+                </HeaderName>
+                <HeaderGlobalBar>
+                    <AuthOptions />
+                </HeaderGlobalBar>
+                <SideNav aria-label="Side navigation" expanded={isSideNavExpanded}>
+                  <SideNavItems>
+                    <SideNavLink href="/">
+                      <Dashboard16 /> Dashboard
+                    </SideNavLink>
+                    <SideNavLink href="bookappointment">
+                      <ReminderMedical16 /> Book An Appointment
+                    </SideNavLink>
+                    <SideNavLink href="createprescription">
+                      <PillsAdd16 /> Create A Prescription
+                    </SideNavLink>
+                    <SideNavLink href="viewappointments">
+                      <Stethoscope16 /> View My Appointments
+                    </SideNavLink>
+                    <SideNavLink href="viewprescriptions">
+                      <Pills16 /> View My Presctiptions
+                    </SideNavLink>
+                    <SideNavLink href="/myaccount">
+                      <UserAvatar16 /> My Account
+                    </SideNavLink>
+                    <SideNavLink href="/pharmacyscanner">
+                      <QrCode16 /> Pharmacy Scanner
+                    </SideNavLink>
+                    <SideNavLink href="/admin">
+                      <ToolBox16 /> ADMIN TOOLS
+                    </SideNavLink>
+
+                  </SideNavItems>
+                </SideNav>
+              </Header>
+
+            </>
+          )}
+        />
+      </div>
 
         </>
+      ) : (
+        <>
+        <div className="container">
+        <HeaderContainer
+          render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+            <>
+              <Header aria-label="MedApp">
+                <SkipToContent />
+                <HeaderMenuButton
+                  aria-label="Open menu"
+                  onClick={onClickSideNavExpand}
+                  isActive={isSideNavExpanded}
+                />
+                <HeaderName href="/" prefix="">
+                  MedApp <HealthCross24 />
+                </HeaderName>
+                <HeaderGlobalBar>
+                    <AuthOptions />
+                </HeaderGlobalBar>
+              </Header>
+
+            </>
+          )}
+        />
+      </div>
+        </>
       )}
-    />
-  </div>
+    </div>
   );
 }

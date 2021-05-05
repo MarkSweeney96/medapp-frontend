@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 
-import { StructuredListWrapper, StructuredListBody, StructuredListRow, StructuredListCell, Button } from 'carbon-components-react';
+import { Tile, StructuredListWrapper, StructuredListBody, StructuredListRow, StructuredListCell, Button } from 'carbon-components-react';
 
 
 export default function MyAccount() {
@@ -14,8 +14,8 @@ export default function MyAccount() {
     <div className="page">
       {userData.user ? (
         <>
-        <br/><br/><br/>
-        <h2>My Account</h2><br/>
+        <br/><br/><br/><br/>
+        <Tile><h2>My Account</h2></Tile><br/>
         <StructuredListWrapper ariaLabel="Structured list">
       <StructuredListBody>
 
@@ -57,7 +57,7 @@ export default function MyAccount() {
 
       </StructuredListBody>
     </StructuredListWrapper>
-    <Button>Edit my personal info</Button>
+    
 
         </>
       ) : (

@@ -53,10 +53,12 @@ export default function App() {
     };
 
     checkLoggedIn();
+
   }, []);
 
 //UserContext.Provider allows react access data for the currently logged in user
   return (
+    <div>
     <BrowserRouter>
       <UserContext.Provider value={{ userData, setUserData }}>
         <UIShell />
@@ -78,5 +80,6 @@ export default function App() {
         </div>
       </UserContext.Provider>
     </BrowserRouter>
+    </div>
   );
 }

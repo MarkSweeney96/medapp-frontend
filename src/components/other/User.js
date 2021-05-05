@@ -28,16 +28,16 @@ const { userData } = useContext(UserContext);
   return (
         <StructuredListRow tabIndex={0}>
           <StructuredListCell>
-            {userData.user.email}
+            {user.email}
           </StructuredListCell>
           <StructuredListCell>
-            {userData.user.name}
+            {user.name}
           </StructuredListCell>
           <StructuredListCell>
-            {userData.user.address}
+            {user.address}
           </StructuredListCell>
           <StructuredListCell>
-            {userData.user.phone}
+            {user.phone}
           </StructuredListCell>
           <StructuredListCell>
 

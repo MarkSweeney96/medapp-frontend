@@ -81,19 +81,19 @@ export default function PharmacyScanner(getPrescriptions) {
             qrMedication = response.data.medication;
             qrNotes = response.data.notes;
 
-            console.log("the id is " + qrId);
+            //console.log("the id is " + qrId);
             setId(qrId);
-            console.log("the patient is " + qrPatient);
+            //console.log("the patient is " + qrPatient);
             setPatinet(qrPatient);
-            console.log("the doctor is " + qrDoctor);
+            //console.log("the doctor is " + qrDoctor);
             setDoctor(qrDoctor);
-            console.log("the date is " + qrDate);
+            //console.log("the date is " + qrDate);
             setDate(qrDate);
-            console.log("the time is " + qrTime);
+            //console.log("the time is " + qrTime);
             setTime(qrTime);
-            console.log("the medication is " + qrMedication);
+            //console.log("the medication is " + qrMedication);
             setMedication(qrMedication);
-            console.log("the notes are " + qrNotes);
+            //console.log("the notes are " + qrNotes);
             setNotes(qrNotes);
        });
 
@@ -103,57 +103,15 @@ export default function PharmacyScanner(getPrescriptions) {
 
    }
 
-
-   console.log("QR Scan is " + qrscan);
-   //
-   // useEffect(() => {
-   //   if (editPrescriptionData) {
-   //     setEditorId(editPrescriptionData._id);
-   //     setEditorPatient(editPrescriptionData.patient);
-   //     setEditorDoctor(editPrescriptionData.doctor);
-   //     setEditorDate(editPrescriptionData.date);
-   //     setEditorTime(editPrescriptionData.time);
-   //     setEditorMedication(editPrescriptionData.medication);
-   //     setEditorNotes(editPrescriptionData.notes);
-   //     setEditorComplete(editPrescriptionData.complete);
-   //   }
-   //
-   // }, [editPrescriptionData]);
-
-   // async function savePrescription(e){
-   //   e.preventDefault();
-   //
-   //   const prescriptionData = {
-   //     _id: returnedQrResult,
-   //     patient: editorPatient,
-   //     doctor: editorDoctor,
-   //     date: editorDate,
-   //     time: editorTime,
-   //     medication: editorMedication,
-   //     notes: editorNotes,
-   //     complete: editorComplete
-   //   }
-   //  await Axios.put(`http://localhost:5000/prescriptions/edit/${editPrescriptionData._id}`, prescriptionData);
-   //
-   //   setEditorId("");
-   //   setEditorPatient("");
-   //   setEditorDoctor("");
-   //   setEditorDate("");
-   //   setEditorTime("");
-   //   setEditorMedication("");
-   //   setEditorNotes("");
-   //   setEditorComplete("");
-   //
-   //   showEditNotification();
-   //   getPrescriptions();
-   //
-   // }
-
   return (
     <div className="page">
       {userData.user ? (
         <>
-        <h1>Pharmacy Prescription Scanner</h1>
+        <br/><br/><br/><br/>
+        <Tile>
+          <h2>Pharmacy Scanner</h2>
+          <h5>SCAN PRESCRIPTIONS BELOW</h5>
+        </Tile><br/>
         <div>
             <center>
             <div>

@@ -63,8 +63,8 @@ function showDeleteNotification() {
     <div className="page">
       {userData.user ? (
         <>
-        <br/><br/><br/>
-        <h2>View appointments</h2><br/>
+        <br/><br/><br/><br/>
+        <Tile><h2>View appointments</h2></Tile><br/>
 
         <div id="notificationDelete">
           <InlineNotification

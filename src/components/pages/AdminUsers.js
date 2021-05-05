@@ -39,7 +39,7 @@ export default function AdminUsers(props) {
   // }
 
   function renderUsers() {
-    //sorts appointments based on the date and time they were greated (newest first)
+    //sorts users based on the date and time they were created (newest first)
     let sortedUsers = [...users];
     sortedUsers = sortedUsers.sort((a,b) => {
       return new Date(b.createdAt) - new Date(a.createdAt);
