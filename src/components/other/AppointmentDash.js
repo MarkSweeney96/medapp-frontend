@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
-import Axios from "axios";
+import React, { useState } from 'react';
+//import Axios from "axios";
 
 import { StructuredListRow } from 'carbon-components-react';
 import { StructuredListCell } from 'carbon-components-react';
-import { Button } from 'carbon-components-react';
+//import { Button } from 'carbon-components-react';
 
 
 export default function AppointmentDash({ appointment, getAppointmentsDash }) {

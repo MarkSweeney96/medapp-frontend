@@ -47,13 +47,13 @@ export default function Dashboard() {
 
   async function getAppointmentsDash() {
     const appointmentsRes = await Axios.get("http://localhost:5000/appointments/");
-    console.log(appointmentsRes);
+    //console.log(appointmentsRes);
     setAppointments(appointmentsRes.data);
   }
 
   async function getPrescriptionsDash() {
     const prescriptionsRes = await Axios.get("http://localhost:5000/prescriptions/");
-    console.log(prescriptionsRes);
+    //console.log(prescriptionsRes);
     setPrescriptions(prescriptionsRes.data);
   }
 
@@ -97,8 +97,8 @@ export default function Dashboard() {
           apptsMsg="You have " + numAppts + " upcoming appointments";
           apptsSubHeading="Your newest appointments can be seen below. All other appointments can be seen on the 'view my appointments' page.";
         }
-        console.log(numAppts);
-        console.log(apptsMsg);
+        //console.log(numAppts);
+        //console.log(apptsMsg);
       }
 
 
@@ -127,8 +127,8 @@ export default function Dashboard() {
             prescMsg="You have " + numPresc + " prescriptions available";
             prescSubHeading="Your newest prescriptions can be seen below. All other prescriptions can be seen on the 'view my prescriptions' page.";
           }
-          console.log(numPresc);
-          console.log(prescMsg);
+          //console.log(numPresc);
+          //console.log(prescMsg);
         }
 
     showApptsDash();

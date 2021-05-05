@@ -25,7 +25,7 @@ export default function AdminUsers(props) {
   async function getUsers() {
     const usersRes = await Axios.get("http://localhost:5000/users/viewall");
     //const usersRes = await Axios.get(`http://localhost:5000/users/findbyid/600706846cb5000c0c8664de`);
-    console.log(usersRes);
+    //console.log(usersRes);
     setUsers(usersRes.data);
   }
 

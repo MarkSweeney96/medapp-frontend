@@ -75,8 +75,8 @@ export default function PharmacyScanner() {
 
    function editPrescription(prescriptionData) {
      setEditPrescriptionData(prescriptionData);
-     console.log("prescription data");
-     console.log(prescriptionData);
+     //console.log("prescription data");
+     //console.log(prescriptionData);
    }
 
    if (qrscan != null) {
@@ -87,8 +87,8 @@ export default function PharmacyScanner() {
 
      const scannedPrescription = Axios.get(`http://localhost:5000/prescriptions/${returnedQrResult}`)
           .then((response) => {
-            console.log("returned result");
-            console.log(response.data);
+            //console.log("returned result");
+            //console.log(response.data);
             setPrescription(response.data);
 
             qrId = response.data._id;

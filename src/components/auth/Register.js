@@ -46,7 +46,7 @@ export default function Register() {
         history.push("/");
     } catch(err) {
       //sets error message if there is one to display from the backend
-      err.response.data && setError(err.response.data);
+      err.response.data.msg && setError(err.response.data.msg);
     }
 
   };
@@ -91,7 +91,7 @@ export default function Register() {
         onChange={(e) => setPassword(e.target.value)}
       />
       <TextInput.PasswordInput
-        id="password"
+        id="register-password-check"
         hidePasswordLabel="Hide password"
         showPasswordLabel="Show password"
         placeholder="Verify Password"

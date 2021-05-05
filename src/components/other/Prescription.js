@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Axios from "axios";
 
 import { StructuredListRow } from 'carbon-components-react';
 import { StructuredListCell } from 'carbon-components-react';
 import { Button } from 'carbon-components-react';
-import { Modal, ModalHeader, ComposedModal, ModalTitle, ModalBody, ModalFooter } from 'carbon-components-react';
+import { ModalHeader, ComposedModal, ModalBody } from 'carbon-components-react';
 import { QrCode16 } from '@carbon/icons-react';
 
 //import EditPrescriptionPhar from "../pages/EditPrescriptionPhar";

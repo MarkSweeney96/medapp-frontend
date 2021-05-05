@@ -25,7 +25,7 @@ export default function ViewAppointments(props) {
 
   async function getAppointments() {
     const appointmentsRes = await Axios.get("http://localhost:5000/appointments/");
-    console.log(appointmentsRes);
+    //console.log(appointmentsRes);
     setAppointments(appointmentsRes.data);
   }
 

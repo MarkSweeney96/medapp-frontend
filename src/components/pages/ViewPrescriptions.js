@@ -25,7 +25,7 @@ export default function ViewPrescriptions() {
 
   async function getPrescriptions() {
     const prescriptionsRes = await Axios.get("http://localhost:5000/prescriptions/");
-    console.log(prescriptionsRes);
+    //console.log(prescriptionsRes);
     setPrescriptions(prescriptionsRes.data);
   }
 

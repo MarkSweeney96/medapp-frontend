@@ -5,7 +5,7 @@ import Axios from "axios";
 import Dashboard from "./components/pages/Dashboard";
 import BookAppointment from "./components/pages/BookAppointment";
 import CreatePrescription from "./components/pages/CreatePrescription";
-import EditAppointmentPatient from "./components/pages/EditAppointmentPatient";
+//import EditAppointmentPatient from "./components/pages/EditAppointmentPatient";
 import ViewAppointments from "./components/pages/ViewAppointments";
 import AdminUsers from "./components/pages/AdminUsers";
 import ViewPrescriptions from "./components/pages/ViewPrescriptions";

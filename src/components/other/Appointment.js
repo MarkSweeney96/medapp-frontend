@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Axios from "axios";
 
 import { StructuredListRow } from 'carbon-components-react';
 import { StructuredListCell } from 'carbon-components-react';
 import { Button } from 'carbon-components-react';
-import { Modal, ModalHeader, ComposedModal, ModalTitle, ModalBody, ModalFooter } from 'carbon-components-react';
+import { ModalHeader, ComposedModal, ModalBody, ModalFooter } from 'carbon-components-react';
 
 import EditAppointmentPatient from "../pages/EditAppointmentPatient";
 import EditAppointmentSec from "../pages/EditAppointmentSec";
@@ -69,7 +69,7 @@ const [open_del, setOpenDel] = useState(false);
             </h2>
           </ModalHeader>
           <ModalBody>
-            <EditAppointmentDocNurse
+            <EditAppointmentSec
               editAppointmentData={editAppointmentData}
               getAppointments={getAppointments}
               showEditNotification={showEditNotification}
