@@ -109,6 +109,8 @@ export default function EditUser({ getUsers, editUserData, showEditNotification,
             onChange={(e) => setEditorPhone(e.target.value)}
           />
 
+          <br/>
+
           <ModalFooter>
           <Button
             kind="secondary"

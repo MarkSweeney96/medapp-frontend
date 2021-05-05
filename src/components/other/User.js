@@ -40,9 +40,7 @@ const { userData } = useContext(UserContext);
             {user.phone}
           </StructuredListCell>
           <StructuredListCell>
-
           <Button kind='primary' onClick={editUserBtn}>Edit</Button>
-
 
           <ComposedModal open={open} onClose={() => setOpen(false)}
           size="sm"
