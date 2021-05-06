@@ -89,12 +89,6 @@ export default function UIShell() {
           render={({ isSideNavExpanded, onClickSideNavExpand }) => (
             <>
               <Header aria-label="MedApp">
-                <SkipToContent />
-                <HeaderMenuButton
-                  aria-label="Open menu"
-                  onClick={onClickSideNavExpand}
-                  isActive={isSideNavExpanded}
-                />
                 <HeaderName href="/" prefix="">
                   <HealthCross24 /> MedApp
                 </HeaderName>

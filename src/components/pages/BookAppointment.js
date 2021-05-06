@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import Axios from "axios";
+import ErrorMsg from "../other/ErrorMsg";
 
 import { Tile } from 'carbon-components-react';
 import { Form } from 'carbon-components-react';
@@ -10,8 +11,8 @@ import { Button } from 'carbon-components-react';
 import { Select } from 'carbon-components-react';
 import { SelectItem, SelectItemGroup } from 'carbon-components-react';
 import { TextArea } from 'carbon-components-react';
-// import { DatePicker } from 'carbon-components-react';
-// import { DatePickerInput } from 'carbon-components-react';
+import { InlineNotification } from 'carbon-components-react';
+import { NotificationActionButton } from 'carbon-components-react';
 
 
 
@@ -24,41 +25,66 @@ export default function BookAppointment() {
   const [editorSymptoms, setEditorSymptoms] = useState("");
   const [editorNotes, setEditorNotes] = useState("");
   const [editorStatus, setEditorStatus] = useState("");
+  const [error, setError] = useState();
 
   async function saveAppointment(e){
     e.preventDefault();
 
-    const appointmentData = {
-      patient: userData.user.name,
-      doctor_nurse: editorDoctorNurse,
-      date: editorDate,
-      time: editorTime,
-      symptoms: editorSymptoms ? editorSymptoms : "Not provided",
-      notes: editorNotes ? editorNotes : "Not provided",
-      status: "Pending"
-      //status: editorStatus
+    try {
+      const appointmentData = {
+        patient: userData.user.name,
+        doctor_nurse: editorDoctorNurse,
+        date: editorDate,
+        time: editorTime,
+        symptoms: editorSymptoms ? editorSymptoms : "Not provided",
+        notes: editorNotes ? editorNotes : "Not provided",
+        status: "Pending"
+      }
+      await Axios.post("http://localhost:5000/appointments/create", appointmentData);
+
+      setEditorPatient("");
+      setEditorDoctorNurse("");
+      setEditorDate("");
+      setEditorTime("");
+      setEditorSymptoms("");
+      setEditorNotes("");
+      setEditorStatus("");
+
+      window.location.replace("/appointmentconfirmation");
+    } catch(err) {
+      //sets error message if there is one to display from the backend
+      err.response.data.msg && setError(err.response.data.msg);
     }
-    await Axios.post("http://localhost:5000/appointments/create", appointmentData);
 
-    setEditorPatient("");
-    setEditorDoctorNurse("");
-    setEditorDate("");
-    setEditorTime("");
-    setEditorSymptoms("");
-    setEditorNotes("");
-    setEditorStatus("");
 
-    window.location.replace("/appointmentconfirmation");
   }
 
 // if the user is logged in display a book appointment form
 // if not, alert them they are not logged in and provied a login link
+
+//{error &&... if there is an error create error message with error text from backend
+// clear error function resets error message to undefined
   return (
     <div className="page">
       {userData.user ? (
         <>
         <br/><br/><br/><br/>
         <Tile><h2>Book an appointment</h2></Tile><br/>
+        {error && (
+          <ErrorMsg
+            message= {
+              <InlineNotification
+                lowContrast
+                hideCloseButton
+                kind="error"
+                actions={<NotificationActionButton>Clear</NotificationActionButton>}
+                iconDescription="close error message"
+                title={error}
+              />
+            }
+          clearError={() => setError(undefined) }
+          />
+        )}
         <div className="appointment-editer">
           <Form action="/appointmentconfirmation" onSubmit={saveAppointment}>
           <br/>

@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import Axios from "axios";
+import ErrorMsg from "../other/ErrorMsg";
 
 //import { Tile } from 'carbon-components-react';
 import { Form } from 'carbon-components-react';
@@ -11,8 +12,8 @@ import { Select } from 'carbon-components-react';
 import { SelectItem } from 'carbon-components-react';
 import { TextArea } from 'carbon-components-react';
 import { ModalFooter } from 'carbon-components-react';
-//import { DatePicker } from 'carbon-components-react';
-//import { DatePickerInput } from 'carbon-components-react';
+import { InlineNotification } from 'carbon-components-react';
+import { NotificationActionButton } from 'carbon-components-react';
 
 
 
@@ -22,6 +23,7 @@ export default function EditUser({ getUsers, editUserData, showEditNotification,
   const [editorName, setEditorName] = useState("");
   const [editorAddress, setEditorAddress] = useState("");
   const [editorPhone, setEditorPhone] = useState("");
+  const [error, setError] = useState();
 
 
   useEffect(() => {
@@ -37,21 +39,26 @@ export default function EditUser({ getUsers, editUserData, showEditNotification,
   async function saveUser(e){
     e.preventDefault();
 
-    const userData = {
-      email: editorEmail,
-      name: editorName,
-      address: editorAddress,
-      phone: editorPhone
+    try {
+      const userData = {
+        email: editorEmail,
+        name: editorName,
+        address: editorAddress,
+        phone: editorPhone
+      }
+      await Axios.put(`http://localhost:5000/users/edit/${editUserData._id}`, userData);
+
+      setEditorEmail("");
+      setEditorName("");
+      setEditorAddress("");
+      setEditorPhone("");
+
+      showEditNotification();
+      getUsers();
+    } catch(err) {
+      //sets error message if there is one to display from the backend
+      err.response.data.msg && setError(err.response.data.msg);
     }
-    await Axios.put(`http://localhost:5000/users/edit/${editUserData._id}`, userData);
-
-    setEditorEmail("");
-    setEditorName("");
-    setEditorAddress("");
-    setEditorPhone("");
-
-    showEditNotification();
-    getUsers();
 
   }
 
@@ -64,6 +71,21 @@ export default function EditUser({ getUsers, editUserData, showEditNotification,
       {userData.user ? (
         <>
           <span><strong>EDIT USER</strong></span>
+          {error && (
+            <ErrorMsg
+              message= {
+                <InlineNotification
+                  lowContrast
+                  hideCloseButton
+                  kind="error"
+                  actions={<NotificationActionButton>Clear</NotificationActionButton>}
+                  iconDescription="close error message"
+                  title={error}
+                />
+              }
+            clearError={() => setError(undefined) }
+            />
+          )}
         <div id="editForm" className="user-editer">
           <Form onSubmit={saveUser}>
           <TextInput

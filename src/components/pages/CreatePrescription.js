@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import UserContext from "../../context/UserContext";
 import NotLoggedIn from "../other/NotLoggedIn";
 import Axios from "axios";
+import ErrorMsg from "../other/ErrorMsg";
 
 import { Tile } from 'carbon-components-react';
 import { Form } from 'carbon-components-react';
@@ -10,8 +11,8 @@ import { Button } from 'carbon-components-react';
 import { Select } from 'carbon-components-react';
 import { SelectItem, SelectItemGroup } from 'carbon-components-react';
 import { TextArea } from 'carbon-components-react';
-// import { DatePicker } from 'carbon-components-react';
-// import { DatePickerInput } from 'carbon-components-react';
+import { InlineNotification } from 'carbon-components-react';
+import { NotificationActionButton } from 'carbon-components-react';
 
 
 
@@ -24,6 +25,7 @@ export default function CreatePrescription() {
   const [editorMedication, setEditorMedication] = useState("");
   const [editorNotes, setEditorNotes] = useState("");
   const [editorComplete, setEditorComplete] = useState("");
+  const [error, setError] = useState();
   let todaysDate = new Date();
   let currentTime = new Date();
   let todaysDateFormatted = "";
@@ -46,30 +48,36 @@ export default function CreatePrescription() {
   getDateTime();
 
 
-  async function saveAppointment(e){
+  async function savePrescription(e){
     e.preventDefault();
 
-    const appointmentData = {
-      patient: editorPatient,
-      doctor: userData.user.name,
-      date: todaysDate,
-      time: currentTime,
-      medication: editorMedication,
-      notes: editorNotes,
-      complete: "No"
-      //status: editorStatus
+    try {
+      const appointmentData = {
+        patient: editorPatient,
+        doctor: userData.user.name,
+        date: todaysDate,
+        time: currentTime,
+        medication: editorMedication,
+        notes: editorNotes,
+        complete: "No"
+      }
+      await Axios.post("http://localhost:5000/prescriptions/create", appointmentData);
+
+      setEditorPatient("");
+      setEditorDoctor("");
+      setEditorDate("");
+      setEditorTime("");
+      setEditorMedication("");
+      setEditorNotes("");
+      setEditorComplete("");
+
+      window.location.replace("/prescriptionconfirmation");
+    } catch(err) {
+      //sets error message if there is one to display from the backend
+      err.response.data.msg && setError(err.response.data.msg);
     }
-    await Axios.post("http://localhost:5000/prescriptions/create", appointmentData);
 
-    setEditorPatient("");
-    setEditorDoctor("");
-    setEditorDate("");
-    setEditorTime("");
-    setEditorMedication("");
-    setEditorNotes("");
-    setEditorComplete("");
 
-    window.location.replace("/prescriptionconfirmation");
   }
 
 // if the user is logged in display a book appointment form
@@ -80,8 +88,23 @@ export default function CreatePrescription() {
         <>
         <br/><br/><br/><br/>
         <Tile><h2>Create a prescription</h2></Tile><br/>
-        <div className="appointment-editer">
-          <Form action="/appointmentconfirmation" onSubmit={saveAppointment}>
+        {error && (
+          <ErrorMsg
+            message= {
+              <InlineNotification
+                lowContrast
+                hideCloseButton
+                kind="error"
+                actions={<NotificationActionButton>Clear</NotificationActionButton>}
+                iconDescription="close error message"
+                title={error}
+              />
+            }
+          clearError={() => setError(undefined) }
+          />
+        )}
+        <div className="prescription-editer">
+          <Form action="/appointmentconfirmation" onSubmit={savePrescription}>
           <br/>
           <Select
               defaultValue=""
@@ -115,6 +138,58 @@ export default function CreatePrescription() {
               <SelectItem
                 text="Chad West"
                 value="Chad West"
+              />
+              <SelectItem
+                text="Olivia Pope"
+                value="Olivia Pope"
+              />
+              <SelectItem
+                text="Quinn Perkins"
+                value="Quinn Perkins"
+              />
+              <SelectItem
+                text="Mellie Grant"
+                value="Mellie Grant"
+              />
+              <SelectItem
+                text="Fitzgerald Grant"
+                value="Fitzgerald Grant"
+              />
+              <SelectItem
+                text="Cyrus Beene"
+                value="Cyrus Beene"
+              />
+              <SelectItem
+                text="Jake Ballard"
+                value="Jake Ballard"
+              />
+              <SelectItem
+                text="David Rosen"
+                value="David Rosen"
+              />
+              <SelectItem
+                text="Abby Whelan"
+                value="Abby Whelan"
+              />
+              <SelectItem
+                text="Annalise Keating"
+                value="Annalise Keating"
+              />
+              <SelectItem
+                text="Wes Gibbins"
+                value="Wes Gibbins"
+              />
+              <SelectItem
+                text="Connor Walsh"
+                value="Connor Walsh"
+              />
+              <SelectItem
+                text="Oliver Hampton"
+                value="Oliver Hampton"
+              />
+              <SelectItem
+                text="Michelle Visage"
+                value="Michelle Visage"
               />
           </Select>
           <br/>
