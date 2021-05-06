@@ -164,7 +164,7 @@ export default function PharmacyScanner() {
             size="sm"
             >
             <ModalBody>
-              <h3>Did the patient collect their prescription?</h3>
+              <h3>Did the patient collect the medication on their prescription?</h3>
               <EditPrescriptionStatus
               setOpen={setOpen}
               editPrescription={editPrescription}

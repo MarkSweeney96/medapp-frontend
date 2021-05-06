@@ -17,7 +17,7 @@ export default function PrescriptionDash({ prescription, getPrescriptionsDash })
   return (
         <StructuredListRow tabIndex={0}>
           <StructuredListCell>
-            {prescription.doctor}
+            Dr. {prescription.doctor}
           </StructuredListCell>
           <StructuredListCell>
             {prescription.date}

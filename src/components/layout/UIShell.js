@@ -37,13 +37,16 @@ export default function UIShell() {
                   isActive={isSideNavExpanded}
                 />
                 <HeaderName href="/" prefix="">
-                  MedApp <HealthCross24 />
+                  <HealthCross24 /> MedApp — Grey-Sloan Memorial Hospital
                 </HeaderName>
                 <HeaderGlobalBar>
                     <AuthOptions />
                 </HeaderGlobalBar>
                 <SideNav aria-label="Side navigation" expanded={isSideNavExpanded}>
                   <SideNavItems>
+                  <SideNavLink href="/">
+                    <img src="http://localhost:3000/img/hospital_logo.jpeg" alt="Grey Sloan Memorial Hospital" width="200" height="200"></img>
+                  </SideNavLink>
                     <SideNavLink href="/">
                       <Dashboard16 /> Dashboard
                     </SideNavLink>
@@ -93,7 +96,7 @@ export default function UIShell() {
                   isActive={isSideNavExpanded}
                 />
                 <HeaderName href="/" prefix="">
-                  MedApp <HealthCross24 />
+                  <HealthCross24 /> MedApp
                 </HeaderName>
                 <HeaderGlobalBar>
                     <AuthOptions />

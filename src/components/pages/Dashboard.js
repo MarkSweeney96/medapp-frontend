@@ -190,7 +190,7 @@ export default function Dashboard() {
       tabIndex={0}
     >
       <StructuredListCell head>
-        Medical Professional
+        Doctor
       </StructuredListCell>
       <StructuredListCell head>
         Date

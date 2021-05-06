@@ -40,7 +40,7 @@ const [open_del, setOpenDel] = useState(false);
             {prescription.patient}
           </StructuredListCell>
           <StructuredListCell>
-            {prescription.doctor}
+            Dr. {prescription.doctor}
           </StructuredListCell>
           <StructuredListCell>
             {prescription.date}
