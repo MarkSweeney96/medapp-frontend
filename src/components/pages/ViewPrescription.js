@@ -92,6 +92,7 @@ export default function ViewPrescription({ getPrescriptions, editPrescriptionDat
           <p>Complete: {editorComplete}</p>
           <QRCode value={editorId} />
           <br/>
+          <p><strong>PLEASE PRESENT THIS PRESCRIPTION TO YOUR PHARMACIST</strong></p>
           </Form>
 
         </div>
