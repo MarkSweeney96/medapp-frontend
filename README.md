@@ -13,7 +13,7 @@ IBM's Carbon Design System was also used for the front end visual design.
 To view a showcase of this project, click the link below. This includes a detailed description of the project along with screenshots of the visual design and a video presentation going through the entire application.
 
 ## [https://www.marksweeney.io/portfolio-of-work/medapp](https://www.marksweeney.io/portfolio-of-work/medapp)
-If you want to setup and run this application on your own computer, follow the steps below.
+If you want to setup and run this application on your own computer, follow the steps below. Before you start, you will need to download or clone the code for the application's front-end and back-end onto your computer.
 
 ## Database Setup
 You will need to create your own MongoDB database to host all your application data. This will include user account, appointment and prescription details. Any passwords stored in the database will be hashed to for security reasons. The easiest way to set this us is using MongoDB Atlas. This is a platform that allows you to create a MongoDB database cluster and host it in the cloud. [This video tutorial](https://www.youtube.com/watch?v=tON8dUrvquE) will give you a full walk-through on how to set this up. Please note: on the last step (timestamp 4:52) select 'Connect Your Application' instead of using the shell method. Ensure your driver is set to Node.js version 3.6 or later. Then copy and paste your your connection string into the .env file. This will be explained below. 
