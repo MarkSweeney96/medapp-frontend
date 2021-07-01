@@ -19,7 +19,7 @@ If you want to setup and run this application on your own computer, follow the s
 You will need to create your own MongoDB database to host all your application data. This will include user account, appointment and prescription details. Any passwords stored in the database will be hashed to for security reasons. The easiest way to set this us is using MongoDB Atlas. This is a platform that allows you to create a MongoDB database cluster and host it in the cloud. [This video tutorial](https://www.youtube.com/watch?v=tON8dUrvquE) will give you a full walk-through on how to set this up. Please note: on the last step (timestamp 4:52) select 'Connect Your Application' instead of using the shell method. Ensure your driver is set to Node.js version 3.6 or later. Then copy and paste your your connection string into the .env file. This will be explained below. 
 
 ## .env File
-In the application's [back-end source code](https://github.com/MarkSweeney96/medapp-backend) folder, create a new file called __.env__. This will contain the environment variables for the database and JWT (JSON Web Token). Below is what this file should look like. 
+In the application's [back-end source code](https://github.com/MarkSweeney96/medapp-backend) folder, create a new file called '__.env__'. This will contain the environment variables for the database and JWT (JSON Web Token). Below is what this file should look like. 
 
 ```
 MONGODB_CONNECTION_STRING=x
